@@ -9,7 +9,13 @@
   "type": "module",
   "repository": "github:Stassi/valping",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup -c",
+    "coverage": "npm run test:unit -- --coverage",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "prepublishOnly": "npm run build",
+    "test": "npm run test:unit && npm run format:check && package-check",
+    "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "devDependencies": {
     "@skypack/package-check": "^0.2.2",
