@@ -105,3 +105,6 @@ dist
 
 # JetBrains IDEA
 /.idea
+
+# Compiled output
+/lib
