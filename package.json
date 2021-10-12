@@ -39,6 +39,14 @@
   "cpu": [
     "x64"
   ],
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "useESM": true
+      }
+    },
+    "preset": "ts-jest/presets/default-esm"
+  },
   "private": true,
   "sideEffects": false
 }
