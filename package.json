@@ -1,7 +1,11 @@
 {
   "name": "valping",
   "version": "0.0.1",
-  "description": "",
+  "description": "Valheim server info.",
+  "keywords": [
+    "steam",
+    "valheim"
+  ],
   "homepage": "https://github.com/Stassi/valping#readme",
   "license": "MIT",
   "author": "Andreas Stassivik <andreas@stassi.net> (https://github.com/Stassi)",
