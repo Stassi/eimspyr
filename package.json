@@ -47,6 +47,11 @@
     },
     "preset": "ts-jest/presets/default-esm"
   },
+  "prettier": {
+    "endOfLine": "auto",
+    "semi": false,
+    "singleQuote": true
+  },
   "private": true,
   "sideEffects": false
 }
