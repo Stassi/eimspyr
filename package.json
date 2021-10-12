@@ -9,8 +9,12 @@
   "homepage": "https://github.com/Stassi/valping#readme",
   "license": "MIT",
   "author": "Andreas Stassivik <andreas@stassi.net> (https://github.com/Stassi)",
-  "main": "index.js",
+  "files": [
+    "lib/**/*"
+  ],
   "type": "module",
+  "types": "./lib/valping.d.ts",
+  "exports": "./lib/valping.mjs",
   "repository": "github:Stassi/valping",
   "scripts": {
     "build": "rollup -c",
