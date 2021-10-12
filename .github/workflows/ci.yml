@@ -1,0 +1,43 @@
+name: Continuous integration
+
+on:
+  push:
+    branches: [main, develop, feature/**]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-build:
+    name: Test & Build
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node-version: [12.22.x, 14.18.x, 16.11.x]
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run test suite
+        run: npm test
+
+      - name: Build compilation
+        run: npm run build
+
+      - name: Coverage report generation
+        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '16.7.x'
+        run: npm run coverage
+
+      - name: Submit coverage report to provider
+        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '16.7.x'
+        uses: codecov/codecov-action@v1
