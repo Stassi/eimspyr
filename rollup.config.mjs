@@ -1,4 +1,8 @@
+import commonjs from '@rollup/plugin-commonjs'
 import { defineConfig } from 'rollup'
+import json from '@rollup/plugin-json'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
+import { terser } from 'rollup-plugin-terser'
 import ts from 'rollup-plugin-ts'
 
 const rollupConfig = defineConfig({
@@ -8,7 +12,7 @@ const rollupConfig = defineConfig({
     format: 'es',
     sourcemap: true,
   },
-  plugins: [ts()],
+  plugins: [commonjs(), json(), nodeResolve(), terser(), ts()],
 })
 
 export default rollupConfig
