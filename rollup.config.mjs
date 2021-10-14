@@ -12,7 +12,13 @@ const rollupConfig = defineConfig({
     format: 'es',
     sourcemap: true,
   },
-  plugins: [commonjs(), json(), nodeResolve(), terser(), ts()],
+  plugins: [
+    commonjs(),
+    json(),
+    nodeResolve({ preferBuiltins: true }),
+    terser(),
+    ts(),
+  ],
 })
 
 export default rollupConfig
