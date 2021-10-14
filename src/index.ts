@@ -1,3 +1,3 @@
-import hello from './hello'
+import valheimServerStatus from './valheimServerStatus'
 
-export { hello }
+export default valheimServerStatus
