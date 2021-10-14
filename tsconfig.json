@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "declaration": true,
     "declarationMap": true,
-    "module": "ES2020",
+    "module": "esnext",
     "moduleResolution": "node",
     "outDir": "lib",
     "strict": true,
