@@ -1,7 +1,8 @@
+import pkg from '../package.json'
 import valheimServerStatus from './__mocks__/valheimServerStatus'
 import zeroPlayersResponse from './mockedResponses/zeroPlayers'
 
-const host: string = '95.156.194.254'
+const { sampleHost: host } = pkg
 
 describe('valheimServerStatus', () => {
   it('should return the server status', async () => {
