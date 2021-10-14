@@ -1,0 +1,74 @@
+{
+  "name": "valping",
+  "version": "0.1.0",
+  "description": "Valheim server info.",
+  "keywords": [
+    "steam",
+    "valheim"
+  ],
+  "homepage": "https://github.com/Stassi/valping#readme",
+  "license": "MIT",
+  "author": "Andreas Stassivik <andreas@stassi.net> (https://github.com/Stassi)",
+  "files": [
+    "lib/**/*"
+  ],
+  "main": "./lib/valping.mjs",
+  "type": "module",
+  "types": "./lib/valping.d.ts",
+  "exports": "./lib/valping.mjs",
+  "repository": "github:Stassi/valping",
+  "scripts": {
+    "build": "rollup -c",
+    "coverage": "npm run test:unit -- --coverage",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "prepublishOnly": "npm run build",
+    "test": "npm run test:unit && npm run format:check && package-check",
+    "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "dependencies": {
+    "@types/gamedig": "^3.0.1",
+    "gamedig": "^3.0.7"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.5",
+    "@skypack/package-check": "^0.2.2",
+    "@types/jest": "^27.0.2",
+    "jest": "^27.2.5",
+    "prettier": "2.4.1",
+    "rollup": "^2.58.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-ts": "^1.4.7",
+    "ts-jest": "^27.0.5",
+    "typescript": "^4.4.3"
+  },
+  "engines": {
+    "node": "^12.22.6 || ^14.18.0 || >=16.11.0",
+    "npm": "^6.14.15 || >=8.0.0"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "useESM": true
+      }
+    },
+    "preset": "ts-jest/presets/default-esm"
+  },
+  "prettier": {
+    "endOfLine": "auto",
+    "semi": false,
+    "singleQuote": true
+  },
+  "sampleHost": "95.156.194.254",
+  "sideEffects": false
+}
