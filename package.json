@@ -12,6 +12,7 @@
   "files": [
     "lib/**/*"
   ],
+  "main": "./lib/valping.mjs",
   "type": "module",
   "types": "./lib/valping.d.ts",
   "exports": "./lib/valping.mjs",
