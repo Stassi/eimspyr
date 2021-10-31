@@ -1,3 +1,6 @@
-import valheimServerStatus from './valheimServerStatus'
+import type { Query } from './query'
+import infoQuery from './infoQuery'
+import query from './query'
 
-export default valheimServerStatus
+export type { Query }
+export { infoQuery, query }
