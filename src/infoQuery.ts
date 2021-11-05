@@ -1,12 +1,13 @@
 import type { Query } from './query'
 import { Buffer } from 'node:buffer'
 import query from './query'
+import { writeCharacter, writeLong, writeString } from './writeSRCDSResponse'
 
 function createRequest(challenge?: Buffer): Buffer {
   return Buffer.concat([
-    Buffer.alloc(4, 0xff),
-    Buffer.from([0x54]),
-    Buffer.from('Source Engine Query\0'),
+    writeLong(-1).buffer,
+    writeCharacter('T').buffer,
+    writeString('Source Engine Query').buffer,
     ...(challenge ? [challenge] : []),
   ])
 }
