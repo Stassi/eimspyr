@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals'
-import mockedZeroPlayersResponse from '../mockedResponses/zeroPlayers'
+import mockedZeroPlayersResponse from '../mockedResponses/zeroPlayersGameDig'
 import originalValheimServerStatus from '../valheimServerStatus'
 
 const valheimServerStatus = jest
