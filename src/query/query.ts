@@ -6,7 +6,6 @@ import { handleUDPSocketError } from './handleUDPSocketError'
 
 export type Query = RemoteInfo & {
   message: Buffer
-  socket: Socket
 }
 
 export default function query({
