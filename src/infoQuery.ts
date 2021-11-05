@@ -18,10 +18,12 @@ function parseChallenge({ message, size }: Query): Buffer | undefined {
     : undefined
 }
 
-export default async function infoQuery(props: {
-  address?: string
-  port?: number
-}): Promise<Query> {
+export default async function infoQuery(
+  props: Partial<{
+    address: string
+    port: number
+  }>
+): Promise<Query> {
   const initialQuery: Query = await query({
     message: createRequest(),
     ...props,
