@@ -12,12 +12,12 @@ import {
   readString,
 } from './readSRCDSResponse'
 
-export type InfoResult = Omit<
+export type InfoResultBig = Omit<
   NonPredicatedInfoResult & PredicatedInfoResult,
   'remaining'
 >
 
-export default function readInfoQuery(message: Buffer): InfoResult {
+export default function readInfoQuery(message: Buffer): InfoResultBig {
   const {
     remaining: nonPredicatedRemaining,
     ...nonPredicatedRes
