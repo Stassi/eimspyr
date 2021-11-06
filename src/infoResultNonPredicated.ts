@@ -1,8 +1,7 @@
 import type { DecodedDataTypes } from './transcoder/decoder'
 import type { InfoResultAndRemaining, ReaderIntent } from './infoResultTypes'
-import { Buffer } from 'node:buffer'
 
-export type NonPredicatedReaderIntent = ReaderIntent<
+export type DecoderIntentNonPredicated = ReaderIntent<
   | 'antiCheat'
   | 'bots'
   | 'environment'
@@ -22,7 +21,7 @@ export type NonPredicatedReaderIntent = ReaderIntent<
   | 'visibility'
 >
 
-export type NonPredicatedInfoResult = InfoResultAndRemaining<{
+export type InfoResultNonPredicated = InfoResultAndRemaining<{
   antiCheat: number
   bots: number
   environment: string
@@ -45,14 +44,16 @@ export type NonPredicatedInfoResult = InfoResultAndRemaining<{
 export default function nonPredicatedInfoResult({
   intents,
   remaining: initialRemaining,
-}: {
-  intents: NonPredicatedReaderIntent[]
-  remaining: Buffer
-}): NonPredicatedInfoResult {
-  return <NonPredicatedInfoResult>intents.reduce(
+}: InfoResultAndRemaining<{
+  intents: DecoderIntentNonPredicated[]
+}>): InfoResultNonPredicated {
+  return <InfoResultNonPredicated>intents.reduce(
     (
-      { remaining: prevRemaining, ...prevProps }: { remaining: Buffer },
-      { name, reader }: NonPredicatedReaderIntent
+      {
+        remaining: prevRemaining,
+        ...prevProps
+      }: InfoResultAndRemaining<Partial<InfoResultNonPredicated>>,
+      { name, reader }: DecoderIntentNonPredicated
     ) => {
       const { remaining, value }: DecodedDataTypes = reader(prevRemaining)
 

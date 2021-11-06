@@ -1,141 +1,37 @@
-import type { NonPredicatedInfoResult } from './nonPredicatedInfoResult'
-import type { PredicatedInfoResult } from './predicatedInfoResult'
+import type { InfoResultNonPredicated } from './infoResultNonPredicated'
+import type { InfoResultPredicated } from './infoResultPredicated'
 import { Buffer } from 'node:buffer'
-import nonPredicatedInfoResult from './nonPredicatedInfoResult'
-import predicatedInfoResult from './predicatedInfoResult'
+import nonPredicatedInfoResult from './infoResultNonPredicated'
+import predicatedInfoResult from './infoResultPredicated'
 import {
-  readByte,
-  readCharacter,
-  readLong,
-  readLongLong,
-  readShort,
-  readString,
-} from './transcoder/decoder'
+  nonPredicated as intentsNonPredicated,
+  predicated as intentsPredicated,
+} from './decoderIntents'
 
 export type InfoResultBig = Omit<
-  NonPredicatedInfoResult & PredicatedInfoResult,
+  InfoResultNonPredicated & InfoResultPredicated,
   'remaining'
 >
 
 export default function readInfoQuery(message: Buffer): InfoResultBig {
   const {
-    remaining: nonPredicatedRemaining,
+    extraDataFlag,
+    remaining,
     ...nonPredicatedRes
-  }: NonPredicatedInfoResult = nonPredicatedInfoResult({
+  }: InfoResultNonPredicated = nonPredicatedInfoResult({
     remaining: message,
-    intents: [
-      {
-        name: 'header',
-        reader: readLong,
-      },
-      {
-        name: 'headerInfo',
-        reader: readCharacter,
-      },
-      {
-        name: 'protocolVersion',
-        reader: readByte,
-      },
-      {
-        name: 'serverName',
-        reader: readString,
-      },
-      {
-        name: 'map',
-        reader: readString,
-      },
-      {
-        name: 'folder',
-        reader: readString,
-      },
-      {
-        name: 'game',
-        reader: readString,
-      },
-      {
-        name: 'platformIDShort',
-        reader: readShort,
-      },
-      {
-        name: 'players',
-        reader: readByte,
-      },
-      {
-        name: 'playersMax',
-        reader: readByte,
-      },
-      {
-        name: 'bots',
-        reader: readByte,
-      },
-      {
-        name: 'serverType',
-        reader: readCharacter,
-      },
-      {
-        name: 'environment',
-        reader: readCharacter,
-      },
-      {
-        name: 'visibility',
-        reader: readByte,
-      },
-      {
-        name: 'antiCheat',
-        reader: readByte,
-      },
-      {
-        name: 'serverVersion',
-        reader: readString,
-      },
-      {
-        name: 'extraDataFlag',
-        reader: readByte,
-      },
-    ],
+    intents: intentsNonPredicated,
   })
 
-  const {
-    remaining: predicatedRemaining,
-    ...predicatedRes
-  }: PredicatedInfoResult = predicatedInfoResult({
-    extraDataFlag: nonPredicatedRes.extraDataFlag,
-    remaining: nonPredicatedRemaining,
-    intents: [
-      {
-        name: 'port',
-        predicateMask: 0x80,
-        reader: readShort,
-      },
-      {
-        name: 'platformIDLong',
-        predicateMask: 0x10,
-        reader: readLongLong,
-      },
-      {
-        name: 'spectatorPort',
-        predicateMask: 0x40,
-        reader: readShort,
-      },
-      {
-        name: 'spectatorName',
-        predicateMask: 0x40,
-        reader: readString,
-      },
-      {
-        name: 'keywords',
-        predicateMask: 0x20,
-        reader: readString,
-      },
-      {
-        name: 'appID',
-        predicateMask: 0x01,
-        reader: readLongLong,
-      },
-    ],
-  })
+  const { remaining: _remaining, ...predicatedRes }: InfoResultPredicated =
+    predicatedInfoResult({
+      extraDataFlag,
+      remaining,
+      intents: intentsPredicated,
+    })
 
   return {
+    extraDataFlag,
     ...nonPredicatedRes,
     ...predicatedRes,
   }

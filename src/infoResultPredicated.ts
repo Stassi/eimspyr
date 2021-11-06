@@ -1,8 +1,7 @@
-import { Buffer } from 'node:buffer'
 import type { DecodedDataTypes } from './transcoder/decoder'
 import type { InfoResultAndRemaining, ReaderIntent } from './infoResultTypes'
 
-export type PredicatedReaderIntent = {
+export type DecoderIntentPredicated = {
   predicateMask: 0x01 | 0x10 | 0x20 | 0x40 | 0x80
 } & ReaderIntent<
   | 'appID'
@@ -13,7 +12,7 @@ export type PredicatedReaderIntent = {
   | 'spectatorPort'
 >
 
-export type PredicatedInfoResult = InfoResultAndRemaining<
+export type InfoResultPredicated = InfoResultAndRemaining<
   Partial<{
     appID: bigint
     keywords: string
@@ -26,15 +25,14 @@ export default function predicatedInfoResult({
   extraDataFlag,
   intents,
   remaining: initialRemaining,
-}: {
+}: InfoResultAndRemaining<{
   extraDataFlag: number
-  intents: PredicatedReaderIntent[]
-  remaining: Buffer
-}): PredicatedInfoResult {
+  intents: DecoderIntentPredicated[]
+}>): InfoResultPredicated {
   return intents.reduce(
     (
-      { remaining: prevRemaining, ...prevProps }: { remaining: Buffer },
-      { name, predicateMask, reader }: PredicatedReaderIntent
+      { remaining: prevRemaining, ...prevProps }: InfoResultPredicated,
+      { name, predicateMask, reader }: DecoderIntentPredicated
     ) => {
       if (!!(extraDataFlag & predicateMask)) {
         const { remaining, value }: DecodedDataTypes = reader(prevRemaining)
