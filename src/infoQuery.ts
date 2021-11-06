@@ -1,7 +1,7 @@
 import type { Query } from './query'
 import { Buffer } from 'node:buffer'
 import query from './query'
-import { writeCharacter, writeLong, writeString } from './writeSRCDSResponse'
+import { writeCharacter, writeLong, writeString } from './transcoder/encoder'
 
 function createRequest(challenge?: Buffer): Buffer {
   return Buffer.concat([

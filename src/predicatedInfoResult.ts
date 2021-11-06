@@ -1,5 +1,5 @@
 import { Buffer } from 'node:buffer'
-import type { ParsedDataTypes } from './readSRCDSResponse'
+import type { DecodedDataTypes } from './transcoder/decoder'
 import type { InfoResultAndRemaining, ReaderIntent } from './infoResultTypes'
 
 export type PredicatedReaderIntent = {
@@ -37,7 +37,7 @@ export default function predicatedInfoResult({
       { name, predicateMask, reader }: PredicatedReaderIntent
     ) => {
       if (!!(extraDataFlag & predicateMask)) {
-        const { remaining, value }: ParsedDataTypes = reader(prevRemaining)
+        const { remaining, value }: DecodedDataTypes = reader(prevRemaining)
         return {
           ...prevProps,
           [name]: value,

@@ -1,5 +1,5 @@
+import type { DecodedDataTypes } from './transcoder/decoder'
 import type { InfoResultAndRemaining, ReaderIntent } from './infoResultTypes'
-import type { ParsedDataTypes } from './readSRCDSResponse'
 import { Buffer } from 'node:buffer'
 
 export type NonPredicatedReaderIntent = ReaderIntent<
@@ -54,7 +54,7 @@ export default function nonPredicatedInfoResult({
       { remaining: prevRemaining, ...prevProps }: { remaining: Buffer },
       { name, reader }: NonPredicatedReaderIntent
     ) => {
-      const { remaining, value }: ParsedDataTypes = reader(prevRemaining)
+      const { remaining, value }: DecodedDataTypes = reader(prevRemaining)
 
       return {
         ...prevProps,

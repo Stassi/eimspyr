@@ -1,49 +1,49 @@
 import { Buffer } from 'node:buffer'
 
-type ParsedDataType<T> = { remaining: Buffer; value: T }
+type DecodedDataType<T> = { remaining: Buffer; value: T }
 
-type ParsedBigInt = ParsedDataType<bigint>
-type ParsedNumber = ParsedDataType<number>
-type ParsedString = ParsedDataType<string>
+type DecodedBigInt = DecodedDataType<bigint>
+type DecodedNumber = DecodedDataType<number>
+type DecodedString = DecodedDataType<string>
 
-export type ParsedDataTypes = ParsedDataType<bigint | number | string>
+export type DecodedDataTypes = DecodedDataType<bigint | number | string>
 
-export function readByte(buffer: Buffer): ParsedNumber {
+export function readByte(buffer: Buffer): DecodedNumber {
   return {
     remaining: buffer.subarray(1),
     value: buffer.readUInt8(),
   }
 }
 
-export function readCharacter(buffer: Buffer): ParsedString {
+export function readCharacter(buffer: Buffer): DecodedString {
   return {
     remaining: buffer.subarray(1),
     value: String.fromCharCode(buffer.readUInt8()),
   }
 }
 
-export function readLong(buffer: Buffer): ParsedNumber {
+export function readLong(buffer: Buffer): DecodedNumber {
   return {
     remaining: buffer.subarray(4),
     value: buffer.readInt32LE(),
   }
 }
 
-export function readLongLong(buffer: Buffer): ParsedBigInt {
+export function readLongLong(buffer: Buffer): DecodedBigInt {
   return {
     remaining: buffer.subarray(8),
     value: buffer.readBigUInt64LE(),
   }
 }
 
-export function readShort(buffer: Buffer): ParsedNumber {
+export function readShort(buffer: Buffer): DecodedNumber {
   return {
     remaining: buffer.subarray(2),
     value: buffer.readInt16LE(),
   }
 }
 
-export function readString(buffer: Buffer): ParsedString {
+export function readString(buffer: Buffer): DecodedString {
   const terminator: number = buffer.indexOf(0) + 1
   return {
     remaining: buffer.subarray(terminator),

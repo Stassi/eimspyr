@@ -10,7 +10,7 @@ import {
   readLongLong,
   readShort,
   readString,
-} from './readSRCDSResponse'
+} from './transcoder/decoder'
 
 export type InfoResultBig = Omit<
   NonPredicatedInfoResult & PredicatedInfoResult,
