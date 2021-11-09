@@ -44,9 +44,10 @@ export function readShort(buffer: Buffer): DecodedNumber {
 }
 
 export function readString(buffer: Buffer): DecodedString {
-  const terminator: number = buffer.indexOf(0) + 1
+  const terminator: number = buffer.indexOf(0)
+
   return {
-    remaining: buffer.subarray(terminator),
+    remaining: buffer.subarray(terminator + 1),
     value: buffer.subarray(0, terminator).toString(),
   }
 }
