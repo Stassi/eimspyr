@@ -1,7 +1,7 @@
 import type { Socket } from 'node:dgram'
 import { createSocket } from 'node:dgram'
 import { Buffer } from 'node:buffer'
-import { handleUDPSocketError } from './handleUDPSocketError'
+import handleUDPSocketError from './handleUDPSocketError'
 
 export type RemoteInfo = {
   address: string
