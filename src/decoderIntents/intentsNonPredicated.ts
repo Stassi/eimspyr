@@ -1,11 +1,31 @@
-import type { DecoderIntentNonPredicated } from '../infoResultNonPredicated'
+import type { ReaderIntent } from './ReaderIntent'
 import {
   readByte,
   readCharacter,
   readLong,
   readShort,
   readString,
-} from '../transcoder/decoder'
+} from '../transcoder'
+
+export type DecoderIntentNonPredicated = ReaderIntent<
+  | 'antiCheat'
+  | 'bots'
+  | 'environment'
+  | 'extraDataFlag'
+  | 'folder'
+  | 'game'
+  | 'header'
+  | 'headerInfo'
+  | 'map'
+  | 'platformIDShort'
+  | 'players'
+  | 'playersMax'
+  | 'protocolVersion'
+  | 'serverName'
+  | 'serverType'
+  | 'serverVersion'
+  | 'visibility'
+>
 
 const intentsNonPredicated: DecoderIntentNonPredicated[] = [
   {

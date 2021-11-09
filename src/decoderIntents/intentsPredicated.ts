@@ -1,5 +1,16 @@
-import type { DecoderIntentPredicated } from '../infoResultPredicated'
-import { readLongLong, readShort, readString } from '../transcoder/decoder'
+import type { ReaderIntent } from './ReaderIntent'
+import { readLongLong, readShort, readString } from '../transcoder'
+
+export type DecoderIntentPredicated = {
+  predicateMask: 0x01 | 0x10 | 0x20 | 0x40 | 0x80
+} & ReaderIntent<
+  | 'appID'
+  | 'keywords'
+  | 'platformIDLong'
+  | 'port'
+  | 'spectatorName'
+  | 'spectatorPort'
+>
 
 const intentsPredicated: DecoderIntentPredicated[] = [
   {
