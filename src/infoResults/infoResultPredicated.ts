@@ -1,18 +1,8 @@
-import type { DecodedDataTypes } from './transcoder/decoder'
-import type { InfoResultAndRemaining, ReaderIntent } from './infoResultTypes'
+import type { DecodedDataTypes } from '../transcoder'
+import type { DecoderIntentPredicated } from '../decoderIntents'
+import type { InfoResultDecoded } from './InfoResultDecoded'
 
-export type DecoderIntentPredicated = {
-  predicateMask: 0x01 | 0x10 | 0x20 | 0x40 | 0x80
-} & ReaderIntent<
-  | 'appID'
-  | 'keywords'
-  | 'platformIDLong'
-  | 'port'
-  | 'spectatorName'
-  | 'spectatorPort'
->
-
-export type InfoResultPredicated = InfoResultAndRemaining<
+export type InfoResultPredicated = InfoResultDecoded<
   Partial<{
     appID: bigint
     keywords: string
@@ -21,11 +11,11 @@ export type InfoResultPredicated = InfoResultAndRemaining<
   }>
 >
 
-export default function predicatedInfoResult({
+export default function infoResultPredicated({
   extraDataFlag,
   intents,
   remaining: initialRemaining,
-}: InfoResultAndRemaining<{
+}: InfoResultDecoded<{
   extraDataFlag: number
   intents: DecoderIntentPredicated[]
 }>): InfoResultPredicated {
@@ -34,7 +24,7 @@ export default function predicatedInfoResult({
       { remaining: prevRemaining, ...prevProps }: InfoResultPredicated,
       { name, predicateMask, reader }: DecoderIntentPredicated
     ) => {
-      if (!!(extraDataFlag & predicateMask)) {
+      if (Boolean(extraDataFlag & predicateMask)) {
         const { remaining, value }: DecodedDataTypes = reader(prevRemaining)
         return {
           ...prevProps,

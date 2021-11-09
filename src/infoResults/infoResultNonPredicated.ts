@@ -1,27 +1,8 @@
-import type { DecodedDataTypes } from './transcoder/decoder'
-import type { InfoResultAndRemaining, ReaderIntent } from './infoResultTypes'
+import type { DecodedDataTypes } from '../transcoder'
+import type { DecoderIntentNonPredicated } from '../decoderIntents'
+import type { InfoResultDecoded } from './InfoResultDecoded'
 
-export type DecoderIntentNonPredicated = ReaderIntent<
-  | 'antiCheat'
-  | 'bots'
-  | 'environment'
-  | 'extraDataFlag'
-  | 'folder'
-  | 'game'
-  | 'header'
-  | 'headerInfo'
-  | 'map'
-  | 'platformIDShort'
-  | 'players'
-  | 'playersMax'
-  | 'protocolVersion'
-  | 'serverName'
-  | 'serverType'
-  | 'serverVersion'
-  | 'visibility'
->
-
-export type InfoResultNonPredicated = InfoResultAndRemaining<{
+export type InfoResultNonPredicated = InfoResultDecoded<{
   antiCheat: number
   bots: number
   environment: string
@@ -41,10 +22,10 @@ export type InfoResultNonPredicated = InfoResultAndRemaining<{
   visibility: number
 }>
 
-export default function nonPredicatedInfoResult({
+export default function infoResultNonPredicated({
   intents,
   remaining: initialRemaining,
-}: InfoResultAndRemaining<{
+}: InfoResultDecoded<{
   intents: DecoderIntentNonPredicated[]
 }>): InfoResultNonPredicated {
   return <InfoResultNonPredicated>intents.reduce(
@@ -52,7 +33,7 @@ export default function nonPredicatedInfoResult({
       {
         remaining: prevRemaining,
         ...prevProps
-      }: InfoResultAndRemaining<Partial<InfoResultNonPredicated>>,
+      }: InfoResultDecoded<Partial<InfoResultNonPredicated>>,
       { name, reader }: DecoderIntentNonPredicated
     ) => {
       const { remaining, value }: DecodedDataTypes = reader(prevRemaining)
