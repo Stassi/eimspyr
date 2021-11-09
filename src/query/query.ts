@@ -1,8 +1,8 @@
-import type { RemoteInfo } from './createUDPSocket'
 import type { Socket } from 'node:dgram'
+import type { RemoteInfo } from './createUDPSocket'
 import { Buffer } from 'node:buffer'
 import { createUDPSocket } from './createUDPSocket'
-import { handleUDPSocketError } from './handleUDPSocketError'
+import handleUDPSocketError from './handleUDPSocketError'
 
 export type Query = RemoteInfo & {
   message: Buffer
