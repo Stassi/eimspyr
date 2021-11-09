@@ -1,9 +1,11 @@
 import type { Encoded } from './transcoder'
-import type { InfoResultInitial } from './infoResults'
+import type { InfoResultInitial } from './decodeInfoQuery'
 import type { Query } from './query'
 import { Buffer } from 'node:buffer'
-import { initial as infoResultInitial } from './infoResults'
-import { initial as intents } from './decoderIntents'
+import {
+  decodeInfoQueryInitial,
+  decoderIntentsInitial as intents,
+} from './decodeInfoQuery'
 import query from './query'
 import { writeCharacter, writeLong, writeString } from './transcoder'
 
@@ -24,7 +26,7 @@ export default async function infoQuery(
       ...props,
     }),
     { message: remaining }: Query = initialQuery,
-    { challenge, headerInfo }: InfoResultInitial = infoResultInitial({
+    { challenge, headerInfo }: InfoResultInitial = decodeInfoQueryInitial({
       intents,
       remaining,
     })

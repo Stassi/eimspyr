@@ -1,4 +1,4 @@
-import type { DecodedDataTypes } from '../transcoder'
+import type { DecodedDataTypes } from '../../transcoder'
 import type { DecoderIntentPredicated } from '../decoderIntents'
 import type { InfoResultDecoded } from './InfoResultDecoded'
 

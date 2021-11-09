@@ -1,5 +1,5 @@
 import type { ReaderIntent } from './ReaderIntent'
-import { readCharacter, readLong } from '../transcoder'
+import { readCharacter, readLong } from '../../transcoder'
 
 export type DecoderIntentInitial = ReaderIntent<
   'challenge' | 'header' | 'headerInfo'
