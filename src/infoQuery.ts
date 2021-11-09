@@ -1,22 +1,17 @@
+import type { Encoded } from './transcoder'
+import type { InfoResultInitial } from './infoResults'
 import type { Query } from './query'
 import { Buffer } from 'node:buffer'
+import { initial as infoResultInitial } from './infoResults'
+import { initial as intents } from './decoderIntents'
 import query from './query'
-import { writeCharacter, writeLong, writeString } from './transcoder/encoder'
+import { writeCharacter, writeLong, writeString } from './transcoder'
 
-function createRequest(challenge?: Buffer): Buffer {
-  return Buffer.concat([
-    writeLong(-1).buffer,
-    writeCharacter('T').buffer,
-    writeString('Source Engine Query').buffer,
-    ...(challenge ? [challenge] : []),
-  ])
-}
-
-function parseChallenge({ message, size }: Query): Buffer | undefined {
-  return size <= 9 && message.includes(0x41)
-    ? Buffer.from(message.subarray(-4))
-    : undefined
-}
+const message: Buffer = Buffer.concat(
+  [writeLong(-1), writeCharacter('T'), writeString('Source Engine Query')].map(
+    ({ buffer }: Encoded) => buffer
+  )
+)
 
 export default async function infoQuery(
   props: Partial<{
@@ -25,15 +20,18 @@ export default async function infoQuery(
   }>
 ): Promise<Query> {
   const initialQuery: Query = await query({
-    message: createRequest(),
-    ...props,
-  })
+      message,
+      ...props,
+    }),
+    { message: remaining }: Query = initialQuery,
+    { challenge, headerInfo }: InfoResultInitial = infoResultInitial({
+      intents,
+      remaining,
+    })
 
-  const challenge: Buffer | undefined = parseChallenge(initialQuery)
-
-  return challenge
+  return headerInfo === 'A'
     ? await query({
-        message: createRequest(challenge),
+        message: Buffer.concat([message, writeLong(challenge).buffer]),
         ...props,
       })
     : initialQuery
