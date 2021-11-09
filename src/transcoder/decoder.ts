@@ -1,6 +1,6 @@
 import type { Buffer } from 'node:buffer'
 
-type DecodedDataType<T> = { remaining: Buffer; value: T }
+type DecodedDataType<Value> = { remaining: Buffer; value: Value }
 
 type DecodedBigInt = DecodedDataType<bigint>
 type DecodedNumber = DecodedDataType<number>
