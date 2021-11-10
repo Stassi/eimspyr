@@ -12,31 +12,100 @@ import {
   predicated as infoResultPredicated,
 } from './infoResults'
 
-export type InfoResultBig = Omit<
+type StringIndexed<Value> = { readonly [p: string]: Value }
+
+type OperatingSystems = 'Linux' | 'macOS' | 'Windows'
+type ResponseTypes = 'A2S_INFO'
+type ServerTypes = 'dedicated' | 'local' | 'proxy'
+
+type InfoResultRaw = Omit<
   InfoResultNonPredicated & InfoResultPredicated,
   'remaining'
 >
 
-export default function decodeInfoQuery(message: Buffer): InfoResultBig {
-  const {
-    extraDataFlag,
-    remaining,
-    ...nonPredicated
-  }: InfoResultNonPredicated = infoResultNonPredicated({
-    remaining: message,
-    intents: intentsNonPredicated,
-  })
+export type InfoResult = Omit<
+  InfoResultRaw,
+  | 'antiCheat'
+  | 'appID'
+  | 'environment'
+  | 'header'
+  | 'headerInfo'
+  | 'platformIDLong'
+  | 'platformIDShort'
+  | 'serverType'
+  | 'visibility'
+> & {
+  antiCheat: boolean
+  appID: string
+  operatingSystem: OperatingSystems
+  packetSplit: boolean
+  passwordRequired: boolean
+  platformID: string
+  responseType: ResponseTypes
+  serverType: ServerTypes
+}
 
-  const { remaining: _remaining, ...predicated }: InfoResultPredicated =
-    infoResultPredicated({
+const m = 'macOS',
+  operatingSystems: StringIndexed<OperatingSystems> = {
+    m,
+    l: 'Linux',
+    o: m,
+    w: 'Windows',
+  },
+  packetSplit: StringIndexed<boolean> = {
+    '-1': false,
+    '-2': true,
+  },
+  responseTypes: StringIndexed<ResponseTypes> = {
+    I: 'A2S_INFO',
+  },
+  serverTypes: StringIndexed<ServerTypes> = {
+    d: 'dedicated',
+    l: 'local',
+    p: 'proxy',
+  }
+
+export default function decodeInfoQuery(message: Buffer): InfoResult {
+  const {
       extraDataFlag,
       remaining,
-      intents: intentsPredicated,
-    })
+      ...nonPredicated
+    }: InfoResultNonPredicated = infoResultNonPredicated({
+      remaining: message,
+      intents: intentsNonPredicated,
+    }),
+    { remaining: _remaining, ...predicated }: InfoResultPredicated =
+      infoResultPredicated({
+        extraDataFlag,
+        remaining,
+        intents: intentsPredicated,
+      }),
+    {
+      antiCheat,
+      appID,
+      environment,
+      header,
+      headerInfo,
+      platformIDLong,
+      platformIDShort,
+      serverType,
+      visibility,
+      ...rawResult
+    }: InfoResultRaw = {
+      extraDataFlag,
+      ...nonPredicated,
+      ...predicated,
+    }
 
   return {
-    extraDataFlag,
-    ...nonPredicated,
-    ...predicated,
+    ...rawResult,
+    antiCheat: Boolean(antiCheat),
+    appID: `${appID}`,
+    operatingSystem: operatingSystems[environment],
+    packetSplit: packetSplit[header],
+    passwordRequired: Boolean(visibility),
+    platformID: `${platformIDLong ? platformIDLong : platformIDShort}`,
+    responseType: responseTypes[headerInfo],
+    serverType: serverTypes[serverType],
   }
 }
