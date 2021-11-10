@@ -11,9 +11,11 @@ export type RemoteInfo = {
 }
 
 export function createUDPSocket({
+  duration,
   resolve,
   reject,
 }: {
+  duration: () => number
   resolve: (x: any) => unknown
   reject: (error: Error) => void
 }): Socket {
@@ -31,6 +33,7 @@ export function createUDPSocket({
       socket.close()
       resolve({
         message,
+        latency: duration(),
         ...remoteInfo,
       })
     })
