@@ -20,7 +20,7 @@ export default async function infoQuery(
     address: string
     port: number
   }>
-): Promise<Query> {
+): Promise<Query[]> {
   const initialQuery: Query = await query({
       message,
       ...props,
@@ -31,10 +31,15 @@ export default async function infoQuery(
       remaining,
     })
 
-  return headerInfo === 'A'
-    ? await query({
-        message: Buffer.concat([message, writeLong(challenge).buffer]),
-        ...props,
-      })
-    : initialQuery
+  return [
+    initialQuery,
+    ...(headerInfo === 'A'
+      ? [
+          await query({
+            message: Buffer.concat([message, writeLong(challenge).buffer]),
+            ...props,
+          }),
+        ]
+      : []),
+  ]
 }
