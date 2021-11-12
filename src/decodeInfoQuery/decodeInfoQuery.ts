@@ -23,7 +23,7 @@ type InfoResultRaw = Omit<
   'remaining'
 >
 
-export type InfoResult = Omit<
+export type DecodedInfoResult = Omit<
   InfoResultRaw,
   | 'antiCheat'
   | 'appID'
@@ -65,7 +65,7 @@ const m = 'macOS',
     p: 'proxy',
   }
 
-export default function decodeInfoQuery(message: Buffer): InfoResult {
+export default function decodeInfoQuery(message: Buffer): DecodedInfoResult {
   const {
       extraDataFlag,
       remaining,
