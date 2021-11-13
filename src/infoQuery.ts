@@ -1,6 +1,6 @@
 import type { DecodedInfoResult } from './decodeInfoQuery'
 import type { InfoResponseFlat } from './flattenInfoResponses'
-import type { RemoteDestination } from './query/createUDPSocket'
+import type { RemoteDestination } from './query'
 import decodeInfoQuery from './decodeInfoQuery'
 import flattenInfoResponses from './flattenInfoResponses'
 import sendInfoQueries from './sendInfoQueries'

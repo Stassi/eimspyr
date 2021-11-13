@@ -1,7 +1,6 @@
 import type { Encoded } from './transcoder'
 import type { InfoResultInitial } from './decodeInfoQuery'
-import type { Query } from './query'
-import type { RemoteDestination } from './query/createUDPSocket'
+import type { Query, RemoteDestination } from './query'
 import { Buffer } from 'node:buffer'
 import {
   decodeInfoQueryInitial,
