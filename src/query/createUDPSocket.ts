@@ -25,14 +25,14 @@ export function createUDPSocket({
   const socket: Socket = createSocket('udp4')
 
   socket
-    .on(
+    .once(
       'error',
       handleUDPSocketError({
         reject,
         socket,
       })
     )
-    .on('message', (message: Buffer, remoteInfo: RemoteInfo): void => {
+    .once('message', (message: Buffer, remoteInfo: RemoteInfo): void => {
       socket.close()
       resolve({
         message,
