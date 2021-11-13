@@ -1,7 +1,7 @@
 {
   "name": "sourcemeter",
   "version": "0.2.1",
-  "description": "Valheim server info.",
+  "description": "Query information from a running Source Dedicated Server (SRCDS) using UDP/IP packets.",
   "keywords": [
     "steam",
     "valheim"
