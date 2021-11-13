@@ -1,4 +1,4 @@
-import type { ReaderIntent } from './ReaderIntent'
+import type { DecoderIntent } from './DecoderIntent'
 import {
   decodeByte,
   decodeCharacter,
@@ -7,7 +7,7 @@ import {
   decodeString,
 } from '../../../transcoder'
 
-export type DecoderIntentNonPredicated = ReaderIntent<
+export type DecoderIntentNonPredicated = DecoderIntent<
   | 'antiCheat'
   | 'bots'
   | 'environment'
@@ -29,72 +29,72 @@ export type DecoderIntentNonPredicated = ReaderIntent<
 
 const intentsNonPredicated: DecoderIntentNonPredicated[] = [
   {
+    decoder: decodeLong,
     name: 'header',
-    reader: decodeLong,
   },
   {
+    decoder: decodeCharacter,
     name: 'headerInfo',
-    reader: decodeCharacter,
   },
   {
+    decoder: decodeByte,
     name: 'protocolVersion',
-    reader: decodeByte,
   },
   {
+    decoder: decodeString,
     name: 'serverName',
-    reader: decodeString,
   },
   {
+    decoder: decodeString,
     name: 'map',
-    reader: decodeString,
   },
   {
+    decoder: decodeString,
     name: 'folder',
-    reader: decodeString,
   },
   {
+    decoder: decodeString,
     name: 'game',
-    reader: decodeString,
   },
   {
+    decoder: decodeShort,
     name: 'platformIDShort',
-    reader: decodeShort,
   },
   {
+    decoder: decodeByte,
     name: 'players',
-    reader: decodeByte,
   },
   {
+    decoder: decodeByte,
     name: 'playersMax',
-    reader: decodeByte,
   },
   {
+    decoder: decodeByte,
     name: 'bots',
-    reader: decodeByte,
   },
   {
+    decoder: decodeCharacter,
     name: 'serverType',
-    reader: decodeCharacter,
   },
   {
+    decoder: decodeCharacter,
     name: 'environment',
-    reader: decodeCharacter,
   },
   {
+    decoder: decodeByte,
     name: 'visibility',
-    reader: decodeByte,
   },
   {
+    decoder: decodeByte,
     name: 'antiCheat',
-    reader: decodeByte,
   },
   {
+    decoder: decodeString,
     name: 'serverVersion',
-    reader: decodeString,
   },
   {
+    decoder: decodeByte,
     name: 'extraDataFlag',
-    reader: decodeByte,
   },
 ]
 
