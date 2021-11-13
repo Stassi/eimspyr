@@ -19,7 +19,6 @@
   "repository": "github:Stassi/valping",
   "scripts": {
     "build": "rollup -c",
-    "coverage": "npm run test:unit -- --coverage",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
     "prepublishOnly": "npm run build",
