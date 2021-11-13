@@ -1,10 +1,10 @@
 import type { ReaderIntent } from './ReaderIntent'
 import {
-  readByte,
-  readCharacter,
-  readLong,
-  readShort,
-  readString,
+  decodeByte,
+  decodeCharacter,
+  decodeLong,
+  decodeShort,
+  decodeString,
 } from '../../../transcoder'
 
 export type DecoderIntentNonPredicated = ReaderIntent<
@@ -30,71 +30,71 @@ export type DecoderIntentNonPredicated = ReaderIntent<
 const intentsNonPredicated: DecoderIntentNonPredicated[] = [
   {
     name: 'header',
-    reader: readLong,
+    reader: decodeLong,
   },
   {
     name: 'headerInfo',
-    reader: readCharacter,
+    reader: decodeCharacter,
   },
   {
     name: 'protocolVersion',
-    reader: readByte,
+    reader: decodeByte,
   },
   {
     name: 'serverName',
-    reader: readString,
+    reader: decodeString,
   },
   {
     name: 'map',
-    reader: readString,
+    reader: decodeString,
   },
   {
     name: 'folder',
-    reader: readString,
+    reader: decodeString,
   },
   {
     name: 'game',
-    reader: readString,
+    reader: decodeString,
   },
   {
     name: 'platformIDShort',
-    reader: readShort,
+    reader: decodeShort,
   },
   {
     name: 'players',
-    reader: readByte,
+    reader: decodeByte,
   },
   {
     name: 'playersMax',
-    reader: readByte,
+    reader: decodeByte,
   },
   {
     name: 'bots',
-    reader: readByte,
+    reader: decodeByte,
   },
   {
     name: 'serverType',
-    reader: readCharacter,
+    reader: decodeCharacter,
   },
   {
     name: 'environment',
-    reader: readCharacter,
+    reader: decodeCharacter,
   },
   {
     name: 'visibility',
-    reader: readByte,
+    reader: decodeByte,
   },
   {
     name: 'antiCheat',
-    reader: readByte,
+    reader: decodeByte,
   },
   {
     name: 'serverVersion',
-    reader: readString,
+    reader: decodeString,
   },
   {
     name: 'extraDataFlag',
-    reader: readByte,
+    reader: decodeByte,
   },
 ]
 

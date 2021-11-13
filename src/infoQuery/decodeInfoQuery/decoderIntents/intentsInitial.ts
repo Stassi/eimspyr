@@ -1,5 +1,5 @@
 import type { ReaderIntent } from './ReaderIntent'
-import { readCharacter, readLong } from '../../../transcoder'
+import { decodeCharacter, decodeLong } from '../../../transcoder'
 
 export type DecoderIntentInitial = ReaderIntent<
   'challenge' | 'header' | 'headerInfo'
@@ -8,15 +8,15 @@ export type DecoderIntentInitial = ReaderIntent<
 const intentsInitial: DecoderIntentInitial[] = [
   {
     name: 'header',
-    reader: readLong,
+    reader: decodeLong,
   },
   {
     name: 'headerInfo',
-    reader: readCharacter,
+    reader: decodeCharacter,
   },
   {
     name: 'challenge',
-    reader: readLong,
+    reader: decodeLong,
   },
 ]
 

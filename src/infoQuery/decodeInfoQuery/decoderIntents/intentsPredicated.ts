@@ -1,5 +1,5 @@
 import type { ReaderIntent } from './ReaderIntent'
-import { readLongLong, readShort, readString } from '../../../transcoder'
+import { decodeLongLong, decodeShort, decodeString } from '../../../transcoder'
 
 export type DecoderIntentPredicated = {
   predicateMask: 0x01 | 0x10 | 0x20 | 0x40 | 0x80
@@ -16,32 +16,32 @@ const intentsPredicated: DecoderIntentPredicated[] = [
   {
     name: 'port',
     predicateMask: 0x80,
-    reader: readShort,
+    reader: decodeShort,
   },
   {
     name: 'platformIDLong',
     predicateMask: 0x10,
-    reader: readLongLong,
+    reader: decodeLongLong,
   },
   {
     name: 'spectatorPort',
     predicateMask: 0x40,
-    reader: readShort,
+    reader: decodeShort,
   },
   {
     name: 'spectatorName',
     predicateMask: 0x40,
-    reader: readString,
+    reader: decodeString,
   },
   {
     name: 'keywords',
     predicateMask: 0x20,
-    reader: readString,
+    reader: decodeString,
   },
   {
     name: 'appID',
     predicateMask: 0x01,
-    reader: readLongLong,
+    reader: decodeLongLong,
   },
 ]
 

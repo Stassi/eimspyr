@@ -2,19 +2,21 @@ import type { Encoded } from '../transcoder'
 import type { InfoResultInitial } from './decodeInfoQuery'
 import type { Query, RemoteDestination } from '../query'
 import { Buffer } from 'node:buffer'
+import { encodeCharacter, encodeLong, encodeString } from '../transcoder'
 import {
   decodeInfoQueryInitial,
   decoderIntentsInitial as intents,
 } from './decodeInfoQuery'
 import query from '../query'
-import { writeCharacter, writeLong, writeString } from '../transcoder'
 
 export type InfoResponseTall = Query & Partial<{ challenge: number }>
 
 const message: Buffer = Buffer.concat(
-  [writeLong(-1), writeCharacter('T'), writeString('Source Engine Query')].map(
-    ({ buffer }: Encoded) => buffer
-  )
+  [
+    encodeLong(-1),
+    encodeCharacter('T'),
+    encodeString('Source Engine Query'),
+  ].map(({ buffer }: Encoded) => buffer)
 )
 
 export default async function sendInfoQueries(
@@ -38,7 +40,7 @@ export default async function sendInfoQueries(
     return [
       { ...initialQuery, challenge },
       await query({
-        message: Buffer.concat([message, writeLong(challenge).buffer]),
+        message: Buffer.concat([message, encodeLong(challenge).buffer]),
         ...destination,
       }),
     ]

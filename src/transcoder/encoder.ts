@@ -2,7 +2,7 @@ import { Buffer } from 'node:buffer'
 
 export type Encoded = { buffer: Buffer; size: number }
 
-export function writeCharacter(s: string): Encoded {
+export function encodeCharacter(s: string): Encoded {
   const buffer: Buffer = Buffer.allocUnsafe(1)
 
   return {
@@ -11,7 +11,7 @@ export function writeCharacter(s: string): Encoded {
   }
 }
 
-export function writeLong(n: number): Encoded {
+export function encodeLong(n: number): Encoded {
   const buffer: Buffer = Buffer.allocUnsafe(4)
 
   return {
@@ -20,7 +20,7 @@ export function writeLong(n: number): Encoded {
   }
 }
 
-export function writeString(s: string): Encoded {
+export function encodeString(s: string): Encoded {
   const terminated: string = `${s}\0`
   const buffer: Buffer = Buffer.allocUnsafe(terminated.length)
 

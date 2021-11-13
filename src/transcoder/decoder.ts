@@ -8,42 +8,42 @@ type DecodedString = DecodedDataType<string>
 
 export type DecodedDataTypes = DecodedDataType<bigint | number | string>
 
-export function readByte(buffer: Buffer): DecodedNumber {
+export function decodeByte(buffer: Buffer): DecodedNumber {
   return {
     remaining: buffer.subarray(1),
     value: buffer.readUInt8(),
   }
 }
 
-export function readCharacter(buffer: Buffer): DecodedString {
+export function decodeCharacter(buffer: Buffer): DecodedString {
   return {
     remaining: buffer.subarray(1),
     value: String.fromCharCode(buffer.readUInt8()),
   }
 }
 
-export function readLong(buffer: Buffer): DecodedNumber {
+export function decodeLong(buffer: Buffer): DecodedNumber {
   return {
     remaining: buffer.subarray(4),
     value: buffer.readInt32LE(),
   }
 }
 
-export function readLongLong(buffer: Buffer): DecodedBigInt {
+export function decodeLongLong(buffer: Buffer): DecodedBigInt {
   return {
     remaining: buffer.subarray(8),
     value: buffer.readBigUInt64LE(),
   }
 }
 
-export function readShort(buffer: Buffer): DecodedNumber {
+export function decodeShort(buffer: Buffer): DecodedNumber {
   return {
     remaining: buffer.subarray(2),
     value: buffer.readInt16LE(),
   }
 }
 
-export function readString(buffer: Buffer): DecodedString {
+export function decodeString(buffer: Buffer): DecodedString {
   const terminator: number = buffer.indexOf(0)
 
   return {

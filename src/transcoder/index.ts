@@ -1,24 +1,24 @@
 import type { DecodedDataTypes } from './decoder'
 import type { Encoded } from './encoder'
 import {
-  readByte,
-  readCharacter,
-  readLong,
-  readLongLong,
-  readShort,
-  readString,
+  decodeByte,
+  decodeCharacter,
+  decodeLong,
+  decodeLongLong,
+  decodeShort,
+  decodeString,
 } from './decoder'
-import { writeCharacter, writeLong, writeString } from './encoder'
+import { encodeCharacter, encodeLong, encodeString } from './encoder'
 
 export type { DecodedDataTypes, Encoded }
 export {
-  readByte,
-  readCharacter,
-  readLong,
-  readLongLong,
-  readShort,
-  readString,
-  writeCharacter,
-  writeLong,
-  writeString,
+  decodeByte,
+  decodeCharacter,
+  decodeLong,
+  decodeLongLong,
+  decodeShort,
+  decodeString,
+  encodeCharacter,
+  encodeLong,
+  encodeString,
 }
