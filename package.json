@@ -1,22 +1,22 @@
 {
-  "name": "valping",
+  "name": "sourcemeter",
   "version": "0.2.1",
   "description": "Valheim server info.",
   "keywords": [
     "steam",
     "valheim"
   ],
-  "homepage": "https://github.com/Stassi/valping#readme",
+  "homepage": "https://github.com/Stassi/sourcemeter#readme",
   "license": "MIT",
   "author": "Andreas Stassivik <andreas@stassi.net> (https://github.com/Stassi)",
   "files": [
     "lib/**/*"
   ],
-  "main": "./lib/valping.mjs",
+  "main": "./lib/sourcemeter.mjs",
   "type": "module",
-  "types": "./lib/valping.d.ts",
-  "exports": "./lib/valping.mjs",
-  "repository": "github:Stassi/valping",
+  "types": "./lib/sourcemeter.d.ts",
+  "exports": "./lib/sourcemeter.mjs",
+  "repository": "github:Stassi/sourcemeter",
   "scripts": {
     "build": "rollup -c",
     "format:check": "prettier --check .",
@@ -60,5 +60,6 @@
     "semi": false,
     "singleQuote": true
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "private": true
 }
