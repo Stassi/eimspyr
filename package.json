@@ -64,6 +64,5 @@
     "semi": false,
     "singleQuote": true
   },
-  "sideEffects": false,
-  "private": true
+  "sideEffects": false
 }
