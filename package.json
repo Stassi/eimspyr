@@ -25,10 +25,6 @@
     "test": "npm run test:unit && npm run format:check && package-check",
     "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
-  "dependencies": {
-    "@types/gamedig": "^3.0.1",
-    "gamedig": "^3.0.7"
-  },
   "devDependencies": {
     "@skypack/package-check": "^0.2.2",
     "@types/jest": "^27.0.2",
