@@ -1,45 +1,35 @@
-import type { Encoded } from './transcoder'
-import type { InfoResultInitial } from './decodeInfoQuery'
-import type { Query } from './query'
-import { Buffer } from 'node:buffer'
-import {
-  decodeInfoQueryInitial,
-  decoderIntentsInitial as intents,
-} from './decodeInfoQuery'
-import query from './query'
-import { writeCharacter, writeLong, writeString } from './transcoder'
+import type { DecodedInfoResult } from './decodeInfoQuery'
+import type { InfoResponseFlat } from './flattenInfoResponses'
+import type { RemoteDestination } from './query/createUDPSocket'
+import decodeInfoQuery from './decodeInfoQuery'
+import flattenInfoResponses from './flattenInfoResponses'
+import sendInfoQueries from './sendInfoQueries'
 
-const message: Buffer = Buffer.concat(
-  [writeLong(-1), writeCharacter('T'), writeString('Source Engine Query')].map(
-    ({ buffer }: Encoded) => buffer
-  )
-)
+export type InfoQuery = Omit<
+  DecodedInfoResult,
+  'packetSplit' | 'responseType'
+> & {
+  response: InfoResponseFlat & { packetSplit: boolean; type: string }
+}
 
 export default async function infoQuery(
-  props: Partial<{
-    address: string
-    port: number
-  }>
-): Promise<Query[]> {
-  const initialQuery: Query = await query({
-      message,
-      ...props,
-    }),
-    { message: remaining }: Query = initialQuery,
-    { challenge, headerInfo }: InfoResultInitial = decodeInfoQueryInitial({
-      intents,
-      remaining,
-    })
+  destination: RemoteDestination
+): Promise<InfoQuery> {
+  const response: InfoResponseFlat = flattenInfoResponses(
+      await sendInfoQueries(destination)
+    ),
+    {
+      messages: [, { message }],
+    }: InfoResponseFlat = response,
+    { packetSplit, responseType, ...decoded }: DecodedInfoResult =
+      decodeInfoQuery(message)
 
-  return [
-    initialQuery,
-    ...(headerInfo === 'A'
-      ? [
-          await query({
-            message: Buffer.concat([message, writeLong(challenge).buffer]),
-            ...props,
-          }),
-        ]
-      : []),
-  ]
+  return {
+    ...decoded,
+    response: {
+      ...response,
+      packetSplit,
+      type: responseType,
+    },
+  }
 }
