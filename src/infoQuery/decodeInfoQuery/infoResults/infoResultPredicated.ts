@@ -22,10 +22,10 @@ export default function infoResultPredicated({
   return intents.reduce(
     (
       { remaining: prevRemaining, ...prevProps }: InfoResultPredicated,
-      { name, predicateMask, reader }: DecoderIntentPredicated
+      { decoder, name, predicateMask }: DecoderIntentPredicated
     ) => {
       if (Boolean(extraDataFlag & predicateMask)) {
-        const { remaining, value }: DecodedDataTypes = reader(prevRemaining)
+        const { remaining, value }: DecodedDataTypes = decoder(prevRemaining)
         return {
           ...prevProps,
           [name]: value,

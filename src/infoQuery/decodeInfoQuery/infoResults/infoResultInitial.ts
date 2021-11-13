@@ -20,9 +20,9 @@ export default function infoResultInitial({
         remaining: prevRemaining,
         ...prevProps
       }: InfoResultDecoded<Partial<InfoResultInitial>>,
-      { name, reader }: DecoderIntentInitial
+      { decoder, name }: DecoderIntentInitial
     ) => {
-      const { remaining, value }: DecodedDataTypes = reader(prevRemaining)
+      const { remaining, value }: DecodedDataTypes = decoder(prevRemaining)
 
       return {
         ...prevProps,

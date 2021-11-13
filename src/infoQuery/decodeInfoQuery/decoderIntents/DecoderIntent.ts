@@ -1,7 +1,7 @@
 import type { Buffer } from 'node:buffer'
 import type { DecodedDataTypes } from '../../../transcoder'
 
-export type ReaderIntent<Name> = {
+export type DecoderIntent<Name> = {
+  decoder: (buffer: Buffer) => DecodedDataTypes
   name: Name
-  reader: (buffer: Buffer) => DecodedDataTypes
 }

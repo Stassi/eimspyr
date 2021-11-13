@@ -34,9 +34,9 @@ export default function infoResultNonPredicated({
         remaining: prevRemaining,
         ...prevProps
       }: InfoResultDecoded<Partial<InfoResultNonPredicated>>,
-      { name, reader }: DecoderIntentNonPredicated
+      { decoder, name }: DecoderIntentNonPredicated
     ) => {
-      const { remaining, value }: DecodedDataTypes = reader(prevRemaining)
+      const { remaining, value }: DecodedDataTypes = decoder(prevRemaining)
 
       return {
         ...prevProps,
