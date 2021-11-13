@@ -1,5 +1,5 @@
 import type { ReaderIntent } from './ReaderIntent'
-import { readLongLong, readShort, readString } from '../../transcoder'
+import { readLongLong, readShort, readString } from '../../../transcoder'
 
 export type DecoderIntentPredicated = {
   predicateMask: 0x01 | 0x10 | 0x20 | 0x40 | 0x80

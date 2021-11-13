@@ -5,7 +5,7 @@ import {
   readLong,
   readShort,
   readString,
-} from '../../transcoder'
+} from '../../../transcoder'
 
 export type DecoderIntentNonPredicated = ReaderIntent<
   | 'antiCheat'

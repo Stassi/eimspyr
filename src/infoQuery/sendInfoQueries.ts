@@ -1,13 +1,13 @@
-import type { Encoded } from './transcoder'
+import type { Encoded } from '../transcoder'
 import type { InfoResultInitial } from './decodeInfoQuery'
-import type { Query, RemoteDestination } from './query'
+import type { Query, RemoteDestination } from '../query'
 import { Buffer } from 'node:buffer'
 import {
   decodeInfoQueryInitial,
   decoderIntentsInitial as intents,
 } from './decodeInfoQuery'
-import query from './query'
-import { writeCharacter, writeLong, writeString } from './transcoder'
+import query from '../query'
+import { writeCharacter, writeLong, writeString } from '../transcoder'
 
 export type InfoResponseTall = Query & Partial<{ challenge: number }>
 

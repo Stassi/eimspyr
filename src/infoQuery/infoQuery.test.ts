@@ -1,6 +1,6 @@
-import type { RemoteDestination } from './query'
-import infoQuery from './__mocks__/infoQuery'
-import zeroPlayersInfoQuery from './mockedResponses/zeroPlayersInfoQuery'
+import type { RemoteDestination } from '../query'
+import infoQuery from '../__mocks__/infoQuery/infoQuery'
+import zeroPlayersInfoQuery from '../mockedResponses/zeroPlayersInfoQuery'
 
 describe('A2S_INFO query', () => {
   describe('Valheim dedicated server', () => {
