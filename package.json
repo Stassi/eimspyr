@@ -3,8 +3,12 @@
   "version": "0.2.1",
   "description": "Query information from a running Source Dedicated Server (SRCDS) using UDP/IP packets.",
   "keywords": [
-    "steam",
-    "valheim"
+    "A2S_INFO",
+    "dedicated server",
+    "game server",
+    "source",
+    "SRCDS",
+    "UDP"
   ],
   "homepage": "https://github.com/Stassi/sourcemeter#readme",
   "license": "MIT",
