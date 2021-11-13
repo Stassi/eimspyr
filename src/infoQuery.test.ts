@@ -1,13 +1,18 @@
-import type { Query } from './query'
-import infoQuery from './infoQuery'
+import type { RemoteDestination } from './query'
+import infoQuery from './__mocks__/infoQuery'
+import zeroPlayersInfoQuery from './mockedResponses/zeroPlayersInfoQuery'
 
-describe('SRCDS info query', () => {
-  it('should return the server status', async () => {
-    const res: Query = await infoQuery({
+describe('A2S_INFO query', () => {
+  describe('Valheim dedicated server', () => {
+    const valheimDedicatedServer: RemoteDestination = {
       address: '95.156.194.254',
       port: 10011,
-    })
+    }
 
-    expect(res).toEqual(true)
+    it('should return the server status', async () => {
+      expect(await infoQuery(valheimDedicatedServer)).toEqual(
+        zeroPlayersInfoQuery
+      )
+    })
   })
 })
