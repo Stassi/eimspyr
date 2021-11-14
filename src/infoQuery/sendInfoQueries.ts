@@ -1,7 +1,7 @@
 import type { Encoded } from '../transcoder'
 import type { InfoResultInitial } from './decodeInfoQuery'
 import type { Query, RemoteDestination } from '../query'
-import { Buffer } from 'node:buffer'
+import { Buffer } from 'buffer'
 import { encodeCharacter, encodeLong, encodeString } from '../transcoder'
 import {
   decodeInfoQueryInitial,

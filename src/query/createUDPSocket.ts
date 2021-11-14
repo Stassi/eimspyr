@@ -1,6 +1,6 @@
-import type { Socket } from 'node:dgram'
-import { createSocket } from 'node:dgram'
-import { Buffer } from 'node:buffer'
+import type { Socket } from 'dgram'
+import { createSocket } from 'dgram'
+import { Buffer } from 'buffer'
 import handleUDPSocketError from './handleUDPSocketError'
 
 export type RemoteDestination = {

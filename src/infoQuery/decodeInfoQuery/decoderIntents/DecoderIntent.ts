@@ -1,4 +1,4 @@
-import type { Buffer } from 'node:buffer'
+import type { Buffer } from 'buffer'
 import type { DecodedDataTypes } from '../../../transcoder'
 
 export type DecoderIntent<Name> = {

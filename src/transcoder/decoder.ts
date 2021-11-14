@@ -1,4 +1,4 @@
-import type { Buffer } from 'node:buffer'
+import type { Buffer } from 'buffer'
 
 type DecodedDataType<Value> = { remaining: Buffer; value: Value }
 

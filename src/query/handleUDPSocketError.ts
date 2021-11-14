@@ -1,4 +1,4 @@
-import type { Socket } from 'node:dgram'
+import type { Socket } from 'dgram'
 
 export default function handleUDPSocketError({
   reject,

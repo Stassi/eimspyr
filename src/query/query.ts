@@ -1,6 +1,6 @@
-import type { Socket } from 'node:dgram'
+import type { Socket } from 'dgram'
 import type { RemoteInfo } from './createUDPSocket'
-import { Buffer } from 'node:buffer'
+import { Buffer } from 'buffer'
 import { createUDPSocket } from './createUDPSocket'
 import durationTimer from './durationTimer'
 import handleUDPSocketError from './handleUDPSocketError'

@@ -2,7 +2,7 @@ import type {
   InfoResultNonPredicated,
   InfoResultPredicated,
 } from './infoResults'
-import { Buffer } from 'node:buffer'
+import { Buffer } from 'buffer'
 import {
   nonPredicated as intentsNonPredicated,
   predicated as intentsPredicated,
