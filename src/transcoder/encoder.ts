@@ -1,4 +1,4 @@
-import { Buffer } from 'node:buffer'
+import { Buffer } from 'buffer'
 
 export type Encoded = { buffer: Buffer; size: number }
 
