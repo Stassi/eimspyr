@@ -22,9 +22,9 @@ npm i sourcemeter
 
 ### Request
 
-Replace example properties with the remote server to be queried.
-
 Built-in type definitions are available for supported IDEs and editors, including for non-TypeScript users.
+
+Example values for properties `address` & `port` must be replaced with the remote server to be queried.
 
 #### JavaScript
 
@@ -49,6 +49,19 @@ const destination: RemoteDestination = {
 }
 
 const response: InfoQuery = await infoQuery(destination)
+```
+
+#### Input type
+
+```typescript
+import type { RemoteDestination } from 'sourcemeter'
+```
+
+```typescript
+type RemoteDestination = {
+  address: string
+  port: number
+}
 ```
 
 ### Response
