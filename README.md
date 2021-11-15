@@ -53,47 +53,52 @@ const response: InfoQuery = await infoQuery(destination)
 
 ### Response
 
-Internal `BigInt` types are converted to `string` to improve compatibility and allow JSON serialization of the response object.
+**Specification:** [_SRCDS server queries_](https://developer.valvesoftware.com/wiki/Server_queries)
 
-Multiple fields are conditional to the value of `extraDataFlag`.
+The `InfoQuery` response object is JSON-serializable. Multiple fields are conditional to the value of `extraDataFlag`.
 
-```javascript
-// extraDataFlag: 177
-{
+```typescript
+import type { InfoQuery } from 'sourcemeter'
+```
+
+```typescript
+type InfoQuery = {
   antiCheat: boolean
-  appID: string,
-  bots: number,
-  extraDataFlag: number,
-  folder: string,
-  game: string,
-  keywords: string,
-  map: string,
-  operatingSystem: string,
-  passwordRequired: boolean,
-  platformID: string,
-  players: number,
-  playersMax: number,
-  port: number,
-  protocolVersion: number,
+  appID?: string
+  bots: number
+  extraDataFlag: number
+  folder: string
+  game: string
+  keywords?: string
+  map: string
+  operatingSystem: 'Linux' | 'macOS' | 'Windows'
+  passwordRequired: boolean
+  platformID?: string
+  players: number
+  playersMax: number
+  port?: number
+  protocolVersion: number
   response: {
-    address: string,
-    challenge?: number,
-    family: string,
-    latency: number,
+    address: string
+    challenge?: number
+    family: string
+    latency: number
     messages: [
       {
-        message: Buffer,
-        size: number,
-      },
-      {...},
-    ],
-    packetSplit: boolean,
-    port: number,
-    type: string,
-  },
-  serverName: string,
-  serverType: string,
-  serverVersion: string,
+        message: Buffer
+        size: number
+      }
+      // {...},
+    ]
+    packetSplit: boolean
+    port: number
+    type: 'A2S_INFO'
+  }
+  serverName: string
+  serverType: 'dedicated' | 'local' | 'proxy'
+  serverVersion: string
+  spectatorName?: number
+  spectatorPort?: number
 }
 ```
 

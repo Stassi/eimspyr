@@ -1,6 +1,6 @@
 {
   "name": "sourcemeter",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Query information from a running Source Dedicated Server (SRCDS) using UDP/IP packets.",
   "keywords": [
     "A2S_INFO",
