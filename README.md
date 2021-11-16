@@ -20,13 +20,9 @@ npm i sourcemeter
 
 ## Usage
 
-### Request
-
-Built-in type definitions are available for supported IDEs and editors, including for non-TypeScript users.
-
 Example values for properties `address` & `port` must be replaced with the remote server to be queried.
 
-#### JavaScript
+### JavaScript
 
 ```javascript
 import { infoQuery } from 'sourcemeter'
@@ -37,7 +33,7 @@ const response = await infoQuery({
 })
 ```
 
-#### TypeScript
+### TypeScript
 
 ```typescript
 import type { InfoQuery, RemoteDestination } from 'sourcemeter'
@@ -51,11 +47,21 @@ const destination: RemoteDestination = {
 const response: InfoQuery = await infoQuery(destination)
 ```
 
-#### Input type
+## Types reference
+
+Built-in type definitions are available for supported IDEs and editors, including for non-TypeScript users.
+
+Importing types with TypeScript is optional and suggested for type safety and readability.
+
+### Imports
 
 ```typescript
-import type { RemoteDestination } from 'sourcemeter'
+import type { InfoQuery, RemoteDestination } from 'sourcemeter'
 ```
+
+### Request
+
+`RemoteDestination` is the input parameter for `infoQuery`.
 
 ```typescript
 type RemoteDestination = {
@@ -69,10 +75,6 @@ type RemoteDestination = {
 **Specification:** [_SRCDS server queries_](https://developer.valvesoftware.com/wiki/Server_queries)
 
 The `InfoQuery` response object is JSON-serializable. Multiple fields are conditional to the value of `extraDataFlag`.
-
-```typescript
-import type { InfoQuery } from 'sourcemeter'
-```
 
 ```typescript
 type InfoQuery = {
