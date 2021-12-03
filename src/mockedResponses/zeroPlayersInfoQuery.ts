@@ -34,7 +34,7 @@ const zeroPlayersInfoQuery: InfoQuery = {
           46, 48, 46, 48, 0, 177, 26, 39, 7, 236, 200, 50, 100, 73, 64, 1, 48,
           46, 50, 48, 51, 46, 49, 49, 0, 42, 160, 13, 0, 0, 0, 0, 0,
         ]),
-        size: 81,
+        size: 82,
       },
     ],
     packetSplit: false,
