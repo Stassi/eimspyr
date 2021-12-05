@@ -1,5 +1,4 @@
-import type { InfoQuery } from '../../infoQuery'
-import type { RemoteDestination } from '../../query'
+import type { InfoQuery, RemoteDestination } from '../../infoQuery'
 import { jest } from '@jest/globals'
 import originalInfoQuery from '../../infoQuery'
 import zeroPlayersInfoQuery from '../../mockedResponses/zeroPlayersInfoQuery'

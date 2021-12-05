@@ -1,4 +1,4 @@
-import type { RemoteDestination } from '../query'
+import type { RemoteDestination } from './infoQuery'
 import infoQuery from '../__mocks__/infoQuery/infoQuery'
 import zeroPlayersInfoQuery from '../mockedResponses/zeroPlayersInfoQuery'
 

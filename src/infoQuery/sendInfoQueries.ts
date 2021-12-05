@@ -1,6 +1,6 @@
 import type { Encoded } from '../transcoder'
 import type { InfoResultInitial } from './decodeInfoQuery'
-import type { Query, RemoteDestination } from '../query'
+import type { Query, RemoteDestinationContender } from '../query'
 import { Buffer } from 'buffer'
 import { encodeCharacter, encodeLong, encodeString } from '../transcoder'
 import {
@@ -20,7 +20,7 @@ const message: Buffer = Buffer.concat(
 )
 
 export default async function sendInfoQueries(
-  destination: RemoteDestination
+  destination: RemoteDestinationContender
 ): Promise<InfoResponseTall[]> {
   const initialQuery: Query = await query({
       message,
