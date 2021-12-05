@@ -29,6 +29,9 @@
     "test": "npm run test:unit && npm run format:check && package-check",
     "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
+  "dependencies": {
+    "dechainer": "^0.3.0"
+  },
   "devDependencies": {
     "@skypack/package-check": "^0.2.2",
     "@types/jest": "^27.0.2",
