@@ -1,5 +1,4 @@
-import type { InfoQuery } from './infoQuery'
-import type { RemoteDestination } from './query'
+import type { InfoQuery, RemoteDestination } from './infoQuery'
 import infoQuery from './infoQuery'
 
 export type { InfoQuery, RemoteDestination }

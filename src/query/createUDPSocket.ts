@@ -3,12 +3,12 @@ import { createSocket } from 'dgram'
 import { Buffer } from 'buffer'
 import handleUDPSocketError from './handleUDPSocketError'
 
-export type RemoteDestination = {
+export type RemoteDestinationContender = {
   address: string
   port: number
 }
 
-export type RemoteInfo = RemoteDestination & {
+export type RemoteInfo = RemoteDestinationContender & {
   family: string
   size: number
 }

@@ -67,8 +67,17 @@ import type { InfoQuery, RemoteDestination } from 'sourcemeter'
 type RemoteDestination = {
   address: string
   port: number
+  timeout?: number
 }
 ```
+
+#### Timeout
+
+Queries time out at `3000` milliseconds (3 seconds) by default. This duration can be shortened or extended by providing a replacement `number` in milliseconds to the optional `timeout` property.
+
+If the timeout occurs before the query completes, a `RangeError` is thrown.
+
+Learn more about [`async` error handling](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await#promise_rejection).
 
 ### Response
 
