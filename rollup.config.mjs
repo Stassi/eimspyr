@@ -1,4 +1,5 @@
 import { defineConfig } from 'rollup'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
 import ts from 'rollup-plugin-ts'
 
 const rollupConfig = defineConfig({
@@ -9,7 +10,7 @@ const rollupConfig = defineConfig({
     format: 'es',
     sourcemap: true,
   },
-  plugins: [ts()],
+  plugins: [nodeResolve(), ts()],
 })
 
 export default rollupConfig
