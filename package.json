@@ -1,6 +1,6 @@
 {
-  "name": "sourcemeter",
-  "version": "0.2.7",
+  "name": "eimspyr",
+  "version": "0.3.0",
   "description": "Query information from a running Source Dedicated Server (SRCDS) using UDP/IP packets.",
   "keywords": [
     "A2S_INFO",
@@ -10,17 +10,17 @@
     "SRCDS",
     "UDP"
   ],
-  "homepage": "https://github.com/Stassi/sourcemeter#readme",
+  "homepage": "https://github.com/Stassi/eimspyr#readme",
   "license": "MIT",
   "author": "Andreas Stassivik <andreas@stassi.net> (https://github.com/Stassi)",
   "files": [
     "lib/**/*"
   ],
-  "main": "./lib/sourcemeter.mjs",
+  "main": "./lib/eimspyr.mjs",
   "type": "module",
-  "types": "./lib/sourcemeter.d.ts",
-  "exports": "./lib/sourcemeter.mjs",
-  "repository": "github:Stassi/sourcemeter",
+  "types": "./lib/eimspyr.d.ts",
+  "exports": "./lib/eimspyr.mjs",
+  "repository": "github:Stassi/eimspyr",
   "scripts": {
     "build": "rollup -c",
     "format:check": "prettier --check .",

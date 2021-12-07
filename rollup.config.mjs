@@ -6,7 +6,7 @@ const rollupConfig = defineConfig({
   external: ['node:buffer', 'node:dgram'],
   input: 'src/index.ts',
   output: {
-    file: 'lib/sourcemeter.mjs',
+    file: 'lib/eimspyr.mjs',
     format: 'es',
     sourcemap: true,
   },
