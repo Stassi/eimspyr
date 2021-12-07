@@ -1,21 +1,21 @@
-# SourceMeter
+# Eimspyr
 
-![npm](https://img.shields.io/npm/v/sourcemeter?style=plastic)
-![GitHub](https://img.shields.io/github/license/Stassi/sourcemeter?style=plastic)
-![npm type definitions](https://img.shields.io/npm/types/sourcemeter?style=plastic)
-![node-current](https://img.shields.io/node/v/sourcemeter?style=plastic)
-![size repository](https://img.shields.io/github/languages/code-size/Stassi/sourcemeter?style=plastic)
-![size minified](https://img.shields.io/bundlephobia/min/sourcemeter?style=plastic)
-![size minzip ](https://img.shields.io/bundlephobia/minzip/sourcemeter?style=plastic)
-[![Continuous integration](https://github.com/Stassi/sourcemeter/actions/workflows/ci.yml/badge.svg)](https://github.com/Stassi/sourcemeter/actions/workflows/ci.yml)
-[![CodeQL](https://github.com/Stassi/sourcemeter/actions/workflows/codeql.yml/badge.svg)](https://github.com/Stassi/sourcemeter/actions/workflows/codeql.yml)
+![npm](https://img.shields.io/npm/v/eimspyr?style=plastic)
+![GitHub](https://img.shields.io/github/license/Stassi/eimspyr?style=plastic)
+![npm type definitions](https://img.shields.io/npm/types/eimspyr?style=plastic)
+![node-current](https://img.shields.io/node/v/eimspyr?style=plastic)
+![size repository](https://img.shields.io/github/languages/code-size/Stassi/eimspyr?style=plastic)
+![size minified](https://img.shields.io/bundlephobia/min/eimspyr?style=plastic)
+![size minzip ](https://img.shields.io/bundlephobia/minzip/eimspyr?style=plastic)
+[![Continuous integration](https://github.com/Stassi/eimspyr/actions/workflows/ci.yml/badge.svg)](https://github.com/Stassi/eimspyr/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/Stassi/eimspyr/actions/workflows/codeql.yml/badge.svg)](https://github.com/Stassi/eimspyr/actions/workflows/codeql.yml)
 
-**SourceMeter** is a [Node.js](https://nodejs.org/) [library](<https://en.wikipedia.org/wiki/Library_(computing)>) written in [TypeScript](https://www.typescriptlang.org/). It [queries information](https://developer.valvesoftware.com/wiki/Server_queries) from a running [Source Dedicated Server (SRCDS)](https://developer.valvesoftware.com/wiki/Source_Dedicated_Server) using [UDP/IP packets](https://en.wikipedia.org/wiki/User_Datagram_Protocol).
+**Eimspyr** is a [Node.js](https://nodejs.org/) [library](<https://en.wikipedia.org/wiki/Library_(computing)>) written in [TypeScript](https://www.typescriptlang.org/). It [queries information](https://developer.valvesoftware.com/wiki/Server_queries) from a running [Source Dedicated Server (SRCDS)](https://developer.valvesoftware.com/wiki/Source_Dedicated_Server) using [UDP/IP packets](https://en.wikipedia.org/wiki/User_Datagram_Protocol).
 
 ## Installation
 
 ```Shell
-npm i sourcemeter
+npm i eimspyr
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ Example values for properties `address` & `port` must be replaced with the remot
 ### JavaScript
 
 ```javascript
-import { infoQuery } from 'sourcemeter'
+import { infoQuery } from 'eimspyr'
 
 const response = await infoQuery({
   address: '127.0.0.1',
@@ -36,8 +36,8 @@ const response = await infoQuery({
 ### TypeScript
 
 ```typescript
-import type { InfoQuery, RemoteDestination } from 'sourcemeter'
-import { infoQuery } from 'sourcemeter'
+import type { InfoQuery, RemoteDestination } from 'eimspyr'
+import { infoQuery } from 'eimspyr'
 
 const destination: RemoteDestination = {
   address: '127.0.0.1',
@@ -56,7 +56,7 @@ Importing types with TypeScript is optional and suggested for type safety and re
 ### Imports
 
 ```typescript
-import type { InfoQuery, RemoteDestination } from 'sourcemeter'
+import type { InfoQuery, RemoteDestination } from 'eimspyr'
 ```
 
 ### Request
@@ -151,7 +151,7 @@ Other games are likely compatible but have yet to be tested. For querying unsupp
 - [Vercel | Next.js API routes](https://nextjs.org/docs/api-routes/introduction)
 
 ```javascript
-import { infoQuery } from 'sourcemeter'
+import { infoQuery } from 'eimspyr'
 
 export default async function handler(req, res) {
   res.status(200).json(
