@@ -1,4 +1,5 @@
 import type { Buffer } from 'buffer'
+import { increment } from 'dechainer'
 
 type DecodedDataType<Value> = { remaining: Buffer; value: Value }
 
@@ -47,7 +48,7 @@ export function decodeString(buffer: Buffer): DecodedString {
   const terminator: number = buffer.indexOf(0)
 
   return {
-    remaining: buffer.subarray(terminator + 1),
+    remaining: buffer.subarray(increment(terminator)),
     value: buffer.subarray(0, terminator).toString(),
   }
 }
