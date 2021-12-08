@@ -1,8 +1,8 @@
 import type { Socket } from 'dgram'
 import type { RemoteInfo } from './createUDPSocket'
 import { Buffer } from 'buffer'
+import { durationTimer } from 'dechainer'
 import { createUDPSocket } from './createUDPSocket'
-import durationTimer from './durationTimer'
 import handleUDPSocketError from './handleUDPSocketError'
 
 export type Query = RemoteInfo & {
