@@ -14,12 +14,16 @@
   "license": "MIT",
   "author": "Andreas Stassivik <andreas@stassi.net> (https://github.com/Stassi)",
   "files": [
-    "lib/**/*"
+    "lib",
+    "!lib/*.cjs.d*"
   ],
-  "main": "./lib/eimspyr.mjs",
+  "main": "./lib/eimspyr.cjs",
   "type": "module",
   "types": "./lib/eimspyr.d.ts",
-  "exports": "./lib/eimspyr.mjs",
+  "exports": {
+    "import": "./lib/eimspyr.mjs",
+    "require": "./lib/eimspyr.cjs"
+  },
   "repository": "github:Stassi/eimspyr",
   "scripts": {
     "build": "rollup -c",
