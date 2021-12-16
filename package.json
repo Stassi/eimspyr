@@ -38,6 +38,7 @@
     "dechainer": "^0.3.2"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.0.6",
     "@skypack/package-check": "^0.2.2",
     "@types/jest": "^27.0.3",
