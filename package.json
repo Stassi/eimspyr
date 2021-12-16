@@ -14,10 +14,12 @@
   "license": "MIT",
   "author": "Andreas Stassivik <andreas@stassi.net> (https://github.com/Stassi)",
   "files": [
+    "bin",
     "lib",
     "!lib/*.cjs.d*"
   ],
   "main": "./lib/eimspyr.cjs",
+  "bin": "./bin/cli.cjs",
   "type": "module",
   "types": "./lib/eimspyr.d.ts",
   "exports": {
