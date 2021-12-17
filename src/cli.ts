@@ -1,7 +1,8 @@
 import type { Callback, MapCallback } from 'dechainer'
 import type { InfoQuery, RemoteDestination } from './infoQuery'
 import { Command } from 'commander'
-import { map } from 'dechainer'
+import { map, sleep } from 'dechainer'
+import { exit } from 'process'
 import { inspect } from 'util'
 
 const toNumber: MapCallback<string, number> = map(Number)
@@ -45,6 +46,11 @@ export function cli({
             colors: true,
           })
         )
+
+        // mitigation for https://nodejs.org/api/process.html#processexitcode
+        await sleep(0)
+
+        exit()
       }
     )
     .parse(argv)
