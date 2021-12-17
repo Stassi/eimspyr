@@ -31,15 +31,13 @@ export function cli({
           timeout: timeoutString,
         }: { depth: string; timeout: string }
       ) => {
-        const [address, portString] = destination.split(':')
-
-        const [depth, port, timeout]: number[] = toNumber([
-          depthString,
-          portString,
-          timeoutString,
-        ])
-
-        const options: RemoteDestination = { address, port, timeout }
+        const [address, portString]: string[] = destination.split(':'),
+          [depth, port, timeout]: number[] = toNumber([
+            depthString,
+            portString,
+            timeoutString,
+          ]),
+          options: RemoteDestination = { address, port, timeout }
 
         console.log(
           inspect(await infoQuery(options), {
