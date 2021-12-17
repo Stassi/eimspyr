@@ -5,7 +5,7 @@ import ts from 'rollup-plugin-ts'
 
 const rollupConfig = defineConfig([
   {
-    external: ['node:util'],
+    external: ['node:process', 'node:util'],
     input: 'src/cli.ts',
     output: {
       file: 'lib/cli.cjs',

@@ -1,7 +1,8 @@
-import type { MapCallback } from 'dechainer'
+import type { Callback, MapCallback } from 'dechainer'
 import type { InfoQuery, RemoteDestination } from './infoQuery'
 import { Command } from 'commander'
-import { map } from 'dechainer'
+import { map, sleep } from 'dechainer'
+import { exit } from 'process'
 import { inspect } from 'util'
 
 const toNumber: MapCallback<string, number> = map(Number)
@@ -13,7 +14,7 @@ export function cli({
   version,
 }: {
   argv: string[]
-  infoQuery: (destination: RemoteDestination) => Promise<InfoQuery>
+  infoQuery: Callback<RemoteDestination, Promise<InfoQuery>>
   name: string
   version: string
 }): void {
@@ -31,15 +32,13 @@ export function cli({
           timeout: timeoutString,
         }: { depth: string; timeout: string }
       ) => {
-        const [address, portString] = destination.split(':')
-
-        const [depth, port, timeout]: number[] = toNumber([
-          depthString,
-          portString,
-          timeoutString,
-        ])
-
-        const options: RemoteDestination = { address, port, timeout }
+        const [address, portString]: string[] = destination.split(':'),
+          [depth, port, timeout]: number[] = toNumber([
+            depthString,
+            portString,
+            timeoutString,
+          ]),
+          options: RemoteDestination = { address, port, timeout }
 
         console.log(
           inspect(await infoQuery(options), {
@@ -47,6 +46,11 @@ export function cli({
             colors: true,
           })
         )
+
+        // mitigation for https://nodejs.org/api/process.html#processexitcode
+        await sleep(0)
+
+        exit()
       }
     )
     .parse(argv)
