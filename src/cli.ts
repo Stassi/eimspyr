@@ -1,4 +1,4 @@
-import type { MapCallback } from 'dechainer'
+import type { Callback, MapCallback } from 'dechainer'
 import type { InfoQuery, RemoteDestination } from './infoQuery'
 import { Command } from 'commander'
 import { map } from 'dechainer'
@@ -13,7 +13,7 @@ export function cli({
   version,
 }: {
   argv: string[]
-  infoQuery: (destination: RemoteDestination) => Promise<InfoQuery>
+  infoQuery: Callback<RemoteDestination, Promise<InfoQuery>>
   name: string
   version: string
 }): void {
