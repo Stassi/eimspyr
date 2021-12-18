@@ -1,16 +1,22 @@
 import type { DecodedInfoResult } from './decodeInfoQuery'
 import type { InfoResponseFlat } from './flattenInfoResponses'
+import type { LatencyStatistics } from './latencyStatistics'
 import type { RemoteDestinationContender } from '../query'
 import { race } from 'dechainer'
 import decodeInfoQuery from './decodeInfoQuery'
 import flattenInfoResponses from './flattenInfoResponses'
+import latencyStatistics from './latencyStatistics'
 import sendInfoQueries from './sendInfoQueries'
 
 export type InfoQuery = Omit<
   DecodedInfoResult,
   'packetSplit' | 'responseType'
 > & {
-  response: InfoResponseFlat & { packetSplit: boolean; type: string }
+  response: InfoResponseFlat & {
+    latency: LatencyStatistics
+    packetSplit: boolean
+    type: string
+  }
 }
 
 export type RemoteDestination = RemoteDestinationContender & {
@@ -34,6 +40,7 @@ async function infoQueryContender(
     response: {
       ...response,
       packetSplit,
+      latency: latencyStatistics(response),
       type: responseType,
     },
   }
