@@ -20,13 +20,14 @@ const zeroPlayersInfoQuery: InfoQuery = {
     address: '95.156.194.254',
     challenge: 1404011430,
     family: 'IPv4',
-    latency: 48,
     messages: [
       {
+        latency: 55,
         message: Buffer.from([255, 255, 255, 255, 65, 22, 92, 45, 203]),
         size: 9,
       },
       {
+        latency: 44,
         message: Buffer.from([
           255, 255, 255, 255, 73, 17, 104, 88, 46, 86, 97, 108, 104, 101, 105,
           109, 0, 104, 88, 46, 86, 97, 108, 104, 101, 105, 109, 0, 118, 97, 108,
