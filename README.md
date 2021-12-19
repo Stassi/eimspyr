@@ -102,17 +102,27 @@ type InfoQuery = {
   playersMax: number
   port?: number
   protocolVersion: number
+  request: {
+    address: string
+    port: number
+    timeout: number
+  }
   response: {
     address: string
     challenge?: number
     family: string
-    latency: number
+    latency: {
+      maximum: number
+      median: number
+      minimum: number
+      total: number
+    }
     messages: [
       {
+        latency: number
         message: Buffer
         size: number
       }
-      // {...},
     ]
     packetSplit: boolean
     port: number
