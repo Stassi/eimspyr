@@ -8,10 +8,16 @@ import flattenInfoResponses from './flattenInfoResponses'
 import latencyStatistics from './latencyStatistics'
 import sendInfoQueries from './sendInfoQueries'
 
+type TimeoutProp = { timeout: number }
+type WithTimeout<T> = T & TimeoutProp
+type WithTimeoutMaybe<T> = T & Partial<TimeoutProp>
+type InfoRequest = WithTimeout<RemoteDestinationContender>
+
 export type InfoQuery = Omit<
   DecodedInfoResult,
   'packetSplit' | 'responseType'
 > & {
+  request: InfoRequest
   response: InfoResponseFlat & {
     latency: LatencyStatistics
     packetSplit: boolean
@@ -19,13 +25,12 @@ export type InfoQuery = Omit<
   }
 }
 
-export type RemoteDestination = RemoteDestinationContender & {
-  timeout?: number
-}
+export type RemoteDestination = WithTimeoutMaybe<RemoteDestinationContender>
 
-async function infoQueryContender(
-  destination: RemoteDestinationContender
-): Promise<InfoQuery> {
+async function infoQueryContender({
+  timeout,
+  ...destination
+}: InfoRequest): Promise<InfoQuery> {
   const response: InfoResponseFlat = flattenInfoResponses(
       await sendInfoQueries(destination)
     ),
@@ -37,6 +42,10 @@ async function infoQueryContender(
 
   return {
     ...decoded,
+    request: {
+      timeout,
+      ...destination,
+    },
     response: {
       ...response,
       packetSplit,
@@ -46,8 +55,14 @@ async function infoQueryContender(
   }
 }
 
-function infoQuery({ timeout = 3000, ...props }: RemoteDestination) {
-  return race({ timeout, contender: infoQueryContender(props) })
+function infoQuery({
+  timeout = 3000,
+  ...destination
+}: RemoteDestination): Promise<InfoQuery> {
+  return race({
+    timeout,
+    contender: infoQueryContender({ timeout, ...destination }),
+  })
 }
 
 export default infoQuery

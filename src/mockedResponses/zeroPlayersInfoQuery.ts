@@ -16,6 +16,11 @@ const zeroPlayersInfoQuery: InfoQuery = {
   playersMax: 64,
   port: 10010,
   protocolVersion: 17,
+  request: {
+    address: '95.156.194.254',
+    port: 10011,
+    timeout: 3001,
+  },
   response: {
     address: '95.156.194.254',
     challenge: 1404011430,
