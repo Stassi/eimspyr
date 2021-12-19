@@ -1,4 +1,5 @@
 import type { InfoQuery } from '../infoQuery'
+import { Buffer } from 'buffer'
 
 const zeroPlayersInfoQuery: InfoQuery = {
   antiCheat: false,
