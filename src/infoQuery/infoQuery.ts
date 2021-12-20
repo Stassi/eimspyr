@@ -49,7 +49,7 @@ async function infoQueryContender({
     response: {
       ...response,
       packetSplit,
-      latency: latencyStatistics(response),
+      latency: latencyStatistics(messages),
       type: responseType,
     },
   }
