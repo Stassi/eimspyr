@@ -1,4 +1,5 @@
 import type { InfoQuery } from '../infoQuery'
+import { Buffer } from 'buffer'
 
 const zeroPlayersInfoQuery: InfoQuery = {
   antiCheat: false,
@@ -51,6 +52,7 @@ const zeroPlayersInfoQuery: InfoQuery = {
     ],
     packetSplit: false,
     port: 10011,
+    reflectionHardened: true,
     type: 'A2S_INFO',
   },
   serverName: 'hX.Valheim',

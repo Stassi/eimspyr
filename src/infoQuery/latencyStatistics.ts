@@ -1,4 +1,4 @@
-import type { InfoResponseFlat } from './flattenInfoResponses'
+import type { InfoMessage } from './flattenInfoResponses'
 import { add, divide, length, map } from 'dechainer'
 
 export type LatencyStatistics = Record<
@@ -6,9 +6,9 @@ export type LatencyStatistics = Record<
   number
 >
 
-export default function latencyStatistics({
-  messages,
-}: InfoResponseFlat): LatencyStatistics {
+export default function latencyStatistics(
+  messages: InfoMessage[]
+): LatencyStatistics {
   const latencies: number[] = map(
       ({ latency }: { latency: number }): number => latency,
       messages

@@ -126,6 +126,7 @@ type InfoQuery = {
     ]
     packetSplit: boolean
     port: number
+    reflectionHardened: boolean
     type: 'A2S_INFO'
   }
   serverName: string
@@ -138,7 +139,9 @@ type InfoQuery = {
 
 ## Compatibility
 
-Simple query responses from `A2S_INFO` in a single non-split packet are compatible, including [anti-reflection attack challenges (est. Dec. 2020)](https://steamcommunity.com/discussions/forum/14/2974028351344359625/). Multi-packet responses are currently incompatible.
+`A2S_INFO` single-packet query responses are supported. Multi-packet responses are not supported.
+
+Responses are supported from servers both hardened and vulnerable against [reflection attacks (est. Dec. 2020)](https://steamcommunity.com/discussions/forum/14/2974028351344359625/). This status can be read from `response.reflectionHardened`.
 
 ### Environment
 
