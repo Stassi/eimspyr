@@ -52,6 +52,7 @@ const zeroPlayersInfoQuery: InfoQuery = {
     ],
     packetSplit: false,
     port: 10011,
+    reflectionHardened: true,
     type: 'A2S_INFO',
   },
   serverName: 'hX.Valheim',

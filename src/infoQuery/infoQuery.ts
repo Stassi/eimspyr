@@ -22,6 +22,7 @@ export type InfoQuery = Omit<
   response: InfoResponseFlat & {
     latency: LatencyStatistics
     packetSplit: boolean
+    reflectionHardened: boolean
     type: string
   }
 }
@@ -35,7 +36,7 @@ async function infoQueryContender({
   const response: InfoResponseFlat = flattenInfoResponses(
       await sendInfoQueries(destination)
     ),
-    { messages }: InfoResponseFlat = response,
+    { challenge, messages }: InfoResponseFlat = response,
     { message }: InfoMessage = lastElement(messages),
     { packetSplit, responseType, ...decoded }: DecodedInfoResult =
       decodeInfoQuery(message)
@@ -50,6 +51,7 @@ async function infoQueryContender({
       ...response,
       packetSplit,
       latency: latencyStatistics(messages),
+      reflectionHardened: Boolean(challenge),
       type: responseType,
     },
   }
