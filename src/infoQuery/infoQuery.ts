@@ -1,10 +1,11 @@
 import type { DecodedInfoResult } from './decodeInfoQuery'
-import type { InfoResponseFlat } from './flattenInfoResponses'
+import type { InfoMessage, InfoResponseFlat } from './flattenInfoResponses'
 import type { LatencyStatistics } from './latencyStatistics'
 import type { RemoteDestinationContender } from '../query'
 import { race } from 'dechainer'
 import decodeInfoQuery from './decodeInfoQuery'
 import flattenInfoResponses from './flattenInfoResponses'
+import lastElement from '../utility/lastElement'
 import latencyStatistics from './latencyStatistics'
 import sendInfoQueries from './sendInfoQueries'
 
@@ -34,9 +35,8 @@ async function infoQueryContender({
   const response: InfoResponseFlat = flattenInfoResponses(
       await sendInfoQueries(destination)
     ),
-    {
-      messages: [, { message }],
-    }: InfoResponseFlat = response,
+    { messages }: InfoResponseFlat = response,
+    { message }: InfoMessage = lastElement(messages),
     { packetSplit, responseType, ...decoded }: DecodedInfoResult =
       decodeInfoQuery(message)
 
