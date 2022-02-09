@@ -36,7 +36,7 @@
     "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "dependencies": {
-    "commander": "^8.3.0",
+    "commander": "^9.0.0",
     "dechainer": "^0.3.2"
   },
   "devDependencies": {
