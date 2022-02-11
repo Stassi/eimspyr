@@ -1,7 +1,7 @@
 import type { DecodedInfoResult } from './decodeInfoQuery'
+import type { Destination } from '../query'
 import type { InfoMessage, InfoResponseFlat } from './flattenInfoResponses'
 import type { LatencyStatistics } from './latencyStatistics'
-import type { RemoteDestinationContender } from '../query'
 import { race } from 'dechainer'
 import decodeInfoQuery from './decodeInfoQuery'
 import flattenInfoResponses from './flattenInfoResponses'
@@ -12,7 +12,7 @@ import sendInfoQueries from './sendInfoQueries'
 type TimeoutProp = { timeout: number }
 type WithTimeout<T> = T & TimeoutProp
 type WithTimeoutMaybe<T> = T & Partial<TimeoutProp>
-type InfoRequest = WithTimeout<RemoteDestinationContender>
+type InfoRequest = WithTimeout<Destination>
 
 export type InfoQuery = Omit<
   DecodedInfoResult,
@@ -27,7 +27,7 @@ export type InfoQuery = Omit<
   }
 }
 
-export type InfoQueryOptions = WithTimeoutMaybe<RemoteDestinationContender>
+export type InfoQueryOptions = WithTimeoutMaybe<Destination>
 
 async function infoQueryContender({
   timeout,
