@@ -36,10 +36,10 @@ const response = await infoQuery({
 ### TypeScript
 
 ```typescript
-import type { InfoQuery, RemoteDestination } from 'eimspyr'
+import type { InfoQuery, InfoQueryOptions } from 'eimspyr'
 import { infoQuery } from 'eimspyr'
 
-const destination: RemoteDestination = {
+const destination: InfoQueryOptions = {
   address: '127.0.0.1',
   port: 12345,
 }
@@ -56,15 +56,15 @@ Importing types with TypeScript is optional and suggested for type safety and re
 ### Imports
 
 ```typescript
-import type { InfoQuery, RemoteDestination } from 'eimspyr'
+import type { InfoQuery, InfoQueryOptions } from 'eimspyr'
 ```
 
 ### Request
 
-`RemoteDestination` is the input parameter for `infoQuery`.
+`InfoQueryOptions` is the input parameter for `infoQuery`.
 
 ```typescript
-type RemoteDestination = {
+type InfoQueryOptions = {
   address: string
   port: number
   timeout?: number

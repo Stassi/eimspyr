@@ -1,10 +1,10 @@
-import type { RemoteDestination } from './infoQuery'
+import type { InfoQueryOptions } from './infoQuery'
 import expected from '../mockedResponses/zeroPlayersInfoQuery'
 import infoQuery from '../__mocks__/infoQuery/infoQuery'
 
 describe('A2S_INFO query', () => {
   describe('Valheim dedicated server', () => {
-    const valheimDedicatedServer: RemoteDestination = {
+    const valheimDedicatedServer: InfoQueryOptions = {
       address: '95.156.194.254',
       port: 10011,
     }

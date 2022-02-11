@@ -1,5 +1,5 @@
 import type { Callback, MapCallback } from 'dechainer'
-import type { InfoQuery, RemoteDestination } from './infoQuery'
+import type { InfoQuery, InfoQueryOptions } from './infoQuery'
 import { Command } from 'commander'
 import { map, sleep } from 'dechainer'
 import { exit } from 'process'
@@ -14,7 +14,7 @@ export function cli({
   version,
 }: {
   argv: string[]
-  infoQuery: Callback<RemoteDestination, Promise<InfoQuery>>
+  infoQuery: Callback<InfoQueryOptions, Promise<InfoQuery>>
   name: string
   version: string
 }): void {
@@ -38,7 +38,7 @@ export function cli({
             portString,
             timeoutString,
           ]),
-          options: RemoteDestination = { address, port, timeout }
+          options: InfoQueryOptions = { address, port, timeout }
 
         console.log(
           inspect(await infoQuery(options), {

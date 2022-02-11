@@ -27,7 +27,7 @@ export type InfoQuery = Omit<
   }
 }
 
-export type RemoteDestination = WithTimeoutMaybe<RemoteDestinationContender>
+export type InfoQueryOptions = WithTimeoutMaybe<RemoteDestinationContender>
 
 async function infoQueryContender({
   timeout,
@@ -60,7 +60,7 @@ async function infoQueryContender({
 function infoQuery({
   timeout = 3000,
   ...destination
-}: RemoteDestination): Promise<InfoQuery> {
+}: InfoQueryOptions): Promise<InfoQuery> {
   return race({
     timeout,
     contender: infoQueryContender({ timeout, ...destination }),
