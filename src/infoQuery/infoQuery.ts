@@ -9,10 +9,8 @@ import lastElement from '../utility/lastElement'
 import latencyStatistics from './latencyStatistics'
 import sendInfoQueries from './sendInfoQueries'
 
-type TimeoutProp = { timeout: number }
-type WithTimeout<T> = T & TimeoutProp
-type WithTimeoutMaybe<T> = T & Partial<TimeoutProp>
-type InfoRequest = WithTimeout<Destination>
+type WithTimeoutProp<T> = T & { timeout: number }
+type InfoRequest = WithTimeoutProp<Destination>
 
 export type InfoQuery = Omit<
   DecodedInfoResult,
@@ -27,7 +25,8 @@ export type InfoQuery = Omit<
   }
 }
 
-export type InfoQueryOptions = WithTimeoutMaybe<Destination>
+export type InfoQueryOptions = Destination &
+  Partial<WithTimeoutProp<{ exactPort: boolean }>>
 
 async function infoQueryContender({
   timeout,
@@ -58,9 +57,12 @@ async function infoQueryContender({
 }
 
 function infoQuery({
+  exactPort = false,
   timeout = 3000,
   ...destination
 }: InfoQueryOptions): Promise<InfoQuery> {
+  if (!exactPort) throw new Error('Port approximation feature not implemented.')
+
   return race({
     timeout,
     contender: infoQueryContender({ timeout, ...destination }),
