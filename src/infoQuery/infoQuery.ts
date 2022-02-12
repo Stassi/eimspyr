@@ -63,27 +63,20 @@ function infoQuery({
   port: portProp,
   timeout = 3000,
 }: InfoQueryOptions): Promise<InfoQuery> {
-  if (exactPort) {
-    return race({
-      timeout,
-      contender: infoQueryContender({ address, timeout, port: portProp }),
-    })
-  } else {
-    return Promise.race(
-      map(
-        (port: number) =>
-          race({
+  return Promise.race(
+    map(
+      (port: number) =>
+        race({
+          timeout,
+          contender: infoQueryContender({
+            address,
+            port,
             timeout,
-            contender: infoQueryContender({
-              address,
-              port,
-              timeout,
-            }),
           }),
-        withPlusAndMinusOne(portProp)
-      )
+        }),
+      exactPort ? [portProp] : withPlusAndMinusOne(portProp)
     )
-  }
+  )
 }
 
 export default infoQuery
