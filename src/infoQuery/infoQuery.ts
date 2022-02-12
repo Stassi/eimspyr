@@ -2,12 +2,13 @@ import type { DecodedInfoResult } from './decodeInfoQuery'
 import type { Destination } from '../query'
 import type { InfoMessage, InfoResponseFlat } from './flattenInfoResponses'
 import type { LatencyStatistics } from './latencyStatistics'
-import { race } from 'dechainer'
+import { map, race } from 'dechainer'
 import decodeInfoQuery from './decodeInfoQuery'
 import flattenInfoResponses from './flattenInfoResponses'
 import lastElement from '../utility/lastElement'
 import latencyStatistics from './latencyStatistics'
 import sendInfoQueries from './sendInfoQueries'
+import withPlusAndMinusOne from '../utility/withPlusAndMinusOne'
 
 type WithTimeoutProp<T> = T & { timeout: number }
 type InfoRequest = WithTimeoutProp<Destination>
@@ -57,16 +58,32 @@ async function infoQueryContender({
 }
 
 function infoQuery({
+  address,
   exactPort = false,
+  port: portProp,
   timeout = 3000,
-  ...destination
 }: InfoQueryOptions): Promise<InfoQuery> {
-  if (!exactPort) throw new Error('Port approximation feature not implemented.')
-
-  return race({
-    timeout,
-    contender: infoQueryContender({ timeout, ...destination }),
-  })
+  if (exactPort) {
+    return race({
+      timeout,
+      contender: infoQueryContender({ address, timeout, port: portProp }),
+    })
+  } else {
+    return Promise.race(
+      map(
+        (port: number) =>
+          race({
+            timeout,
+            contender: infoQueryContender({
+              address,
+              port,
+              timeout,
+            }),
+          }),
+        withPlusAndMinusOne(portProp)
+      )
+    )
+  }
 }
 
 export default infoQuery
