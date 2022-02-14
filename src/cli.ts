@@ -1,5 +1,5 @@
 import type { Callback, MapCallback } from 'dechainer'
-import type { InfoQuery, RemoteDestination } from './infoQuery'
+import type { InfoQuery, InfoQueryOptions } from './infoQuery'
 import { Command } from 'commander'
 import { map, sleep } from 'dechainer'
 import { exit } from 'process'
@@ -14,7 +14,7 @@ export function cli({
   version,
 }: {
   argv: string[]
-  infoQuery: Callback<RemoteDestination, Promise<InfoQuery>>
+  infoQuery: Callback<InfoQueryOptions, Promise<InfoQuery>>
   name: string
   version: string
 }): void {
@@ -23,22 +23,25 @@ export function cli({
     .version(version)
     .argument('<destination>', 'destination server address:port')
     .option('-d, --depth <number>', 'depth of response object', '2')
+    .option('-p --portTolerance <number>', 'port error tolerance', '1')
     .option('-t, --timeout <number>', 'timeout in milliseconds', '3000')
     .action(
       async (
         destination: string,
         {
           depth: depthString,
+          portTolerance: portToleranceString,
           timeout: timeoutString,
-        }: { depth: string; timeout: string }
+        }: { depth: string; portTolerance: string; timeout: string }
       ) => {
         const [address, portString]: string[] = destination.split(':'),
-          [depth, port, timeout]: number[] = toNumber([
+          [depth, port, portTolerance, timeout]: number[] = toNumber([
             depthString,
             portString,
+            portToleranceString,
             timeoutString,
           ]),
-          options: RemoteDestination = { address, port, timeout }
+          options: InfoQueryOptions = { address, port, portTolerance, timeout }
 
         console.log(
           inspect(await infoQuery(options), {

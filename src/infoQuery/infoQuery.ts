@@ -1,18 +1,17 @@
 import type { DecodedInfoResult } from './decodeInfoQuery'
+import type { Destination } from '../query'
 import type { InfoMessage, InfoResponseFlat } from './flattenInfoResponses'
 import type { LatencyStatistics } from './latencyStatistics'
-import type { RemoteDestinationContender } from '../query'
-import { race } from 'dechainer'
+import { map, race } from 'dechainer'
 import decodeInfoQuery from './decodeInfoQuery'
 import flattenInfoResponses from './flattenInfoResponses'
 import lastElement from '../utility/lastElement'
 import latencyStatistics from './latencyStatistics'
 import sendInfoQueries from './sendInfoQueries'
+import withNegativeAndPositiveOffset from '../utility/withNegativeAndPositiveOffset'
 
-type TimeoutProp = { timeout: number }
-type WithTimeout<T> = T & TimeoutProp
-type WithTimeoutMaybe<T> = T & Partial<TimeoutProp>
-type InfoRequest = WithTimeout<RemoteDestinationContender>
+type WithTimeoutProp<T> = T & { timeout: number }
+type InfoRequest = WithTimeoutProp<Destination>
 
 export type InfoQuery = Omit<
   DecodedInfoResult,
@@ -27,7 +26,8 @@ export type InfoQuery = Omit<
   }
 }
 
-export type RemoteDestination = WithTimeoutMaybe<RemoteDestinationContender>
+export type InfoQueryOptions = Destination &
+  Partial<WithTimeoutProp<{ portTolerance: number }>>
 
 async function infoQueryContender({
   timeout,
@@ -58,13 +58,25 @@ async function infoQueryContender({
 }
 
 function infoQuery({
+  address,
+  port: portProp,
+  portTolerance = 1,
   timeout = 3000,
-  ...destination
-}: RemoteDestination): Promise<InfoQuery> {
-  return race({
-    timeout,
-    contender: infoQueryContender({ timeout, ...destination }),
-  })
+}: InfoQueryOptions): Promise<InfoQuery> {
+  return Promise.race(
+    map(
+      (port: number) =>
+        race({
+          timeout,
+          contender: infoQueryContender({
+            address,
+            port,
+            timeout,
+          }),
+        }),
+      withNegativeAndPositiveOffset({ offset: portTolerance, value: portProp })
+    )
+  )
 }
 
 export default infoQuery

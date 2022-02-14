@@ -36,10 +36,10 @@ const response = await infoQuery({
 ### TypeScript
 
 ```typescript
-import type { InfoQuery, RemoteDestination } from 'eimspyr'
+import type { InfoQuery, InfoQueryOptions } from 'eimspyr'
 import { infoQuery } from 'eimspyr'
 
-const destination: RemoteDestination = {
+const destination: InfoQueryOptions = {
   address: '127.0.0.1',
   port: 12345,
 }
@@ -56,20 +56,31 @@ Importing types with TypeScript is optional and suggested for type safety and re
 ### Imports
 
 ```typescript
-import type { InfoQuery, RemoteDestination } from 'eimspyr'
+import type { InfoQuery, InfoQueryOptions } from 'eimspyr'
 ```
 
 ### Request
 
-`RemoteDestination` is the input parameter for `infoQuery`.
+`InfoQueryOptions` is the input parameter for `infoQuery`.
 
 ```typescript
-type RemoteDestination = {
+type InfoQueryOptions = {
   address: string
   port: number
+  portTolerance?: number
   timeout?: number
 }
 ```
+
+#### Port error tolerance
+
+Queries that are inaccurate by up to `1` port number are allowed by default. This is useful for situations where interchangeable RCON and query ports are desired for convenience. Regardless of the inaccuracy of the provided port number, the true port of the request is included in the `InfoQuery` response at `request.port`.
+
+For example, Valheim's joinable in-game port (RCON) is `1` less than the query port number (i.e.: `rcon: 999` and `query: 1000`). It is usually not possible to query RCON ports without manually incrementing to find the query port number, but this incrementing is solved automatically by default, allowing all ports seen in-game and in the Steam server browser to be "queried" as-is.
+
+Provide a number to the optional `portTolerance` property to change the port offset, which should equal the known distance commonly found between a game's RCON and query ports (usually `1`).
+
+_Set to `0` for best performance._
 
 #### Timeout
 
