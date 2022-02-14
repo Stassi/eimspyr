@@ -6,12 +6,16 @@ import zeroPlayersInfoQuery from '../../mockedResponses/zeroPlayersInfoQuery'
 const remoteQueryPort = 10011,
   infoQuery = <jest.MockedFunction<typeof originalInfoQuery>>jest
     .fn(
-      ({ exactPort, port, timeout }: InfoQueryOptions): Promise<InfoQuery> => {
+      ({
+        port,
+        portTolerance,
+        timeout,
+      }: InfoQueryOptions): Promise<InfoQuery> => {
         if (timeout === 0) {
           return Promise.reject(() => {
             throw new RangeError('Timeout after 0 ms')
           })
-        } else if (exactPort) {
+        } else if (portTolerance === 0) {
           return port === remoteQueryPort
             ? Promise.resolve(zeroPlayersInfoQuery)
             : Promise.reject(() => {
