@@ -8,7 +8,7 @@ import flattenInfoResponses from './flattenInfoResponses'
 import lastElement from '../utility/lastElement'
 import latencyStatistics from './latencyStatistics'
 import sendInfoQueries from './sendInfoQueries'
-import withPlusAndMinusOne from '../utility/withPlusAndMinusOne'
+import withNegativeAndPositiveOffset from '../utility/withNegativeAndPositiveOffset'
 
 type WithTimeoutProp<T> = T & { timeout: number }
 type InfoRequest = WithTimeoutProp<Destination>
@@ -27,7 +27,7 @@ export type InfoQuery = Omit<
 }
 
 export type InfoQueryOptions = Destination &
-  Partial<WithTimeoutProp<{ exactPort: boolean }>>
+  Partial<WithTimeoutProp<{ portTolerance: number }>>
 
 async function infoQueryContender({
   timeout,
@@ -59,8 +59,8 @@ async function infoQueryContender({
 
 function infoQuery({
   address,
-  exactPort = false,
   port: portProp,
+  portTolerance = 1,
   timeout = 3000,
 }: InfoQueryOptions): Promise<InfoQuery> {
   return Promise.race(
@@ -74,7 +74,7 @@ function infoQuery({
             timeout,
           }),
         }),
-      exactPort ? [portProp] : withPlusAndMinusOne(portProp)
+      withNegativeAndPositiveOffset({ offset: portTolerance, value: portProp })
     )
   )
 }
