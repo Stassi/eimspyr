@@ -8,8 +8,8 @@ describe('A2S_INFO query', () => {
     const address = '95.156.194.254',
       portOffset: NumberCallback = add(10011)
 
-    describe('exact port: false', () => {
-      const exactPort = false
+    describe('port tolerance: 0', () => {
+      const portTolerance = 0
 
       describe('port offset: ±0', () => {
         const port = portOffset(0)
@@ -21,8 +21,8 @@ describe('A2S_INFO query', () => {
             expect(
               await infoQuery({
                 address,
-                exactPort,
                 port,
+                portTolerance,
                 timeout,
               })
             ).toEqual(expected)
@@ -36,8 +36,8 @@ describe('A2S_INFO query', () => {
             await expect(
               infoQuery({
                 address,
-                exactPort,
                 port,
+                portTolerance,
                 timeout,
               })
             ).rejects.toThrow(new RangeError('Timeout after 0 ms'))
@@ -51,15 +51,15 @@ describe('A2S_INFO query', () => {
         describe('timeout: 3000', () => {
           const timeout = 3000
 
-          it('should return the server status', async () => {
-            expect(
-              await infoQuery({
+          it('should throw a RangeError', async () => {
+            await expect(
+              infoQuery({
                 address,
-                exactPort,
                 port,
+                portTolerance,
                 timeout,
               })
-            ).toEqual(expected)
+            ).rejects.toThrow(new RangeError('Timeout after 3000 ms'))
           })
         })
 
@@ -70,8 +70,8 @@ describe('A2S_INFO query', () => {
             await expect(
               infoQuery({
                 address,
-                exactPort,
                 port,
+                portTolerance,
                 timeout,
               })
             ).rejects.toThrow(new RangeError('Timeout after 0 ms'))
@@ -85,15 +85,15 @@ describe('A2S_INFO query', () => {
         describe('timeout: 3000', () => {
           const timeout = 3000
 
-          it('should return the server status', async () => {
-            expect(
-              await infoQuery({
+          it('should throw a RangeError', async () => {
+            await expect(
+              infoQuery({
                 address,
-                exactPort,
                 port,
+                portTolerance,
                 timeout,
               })
-            ).toEqual(expected)
+            ).rejects.toThrow(new RangeError('Timeout after 3000 ms'))
           })
         })
 
@@ -104,8 +104,8 @@ describe('A2S_INFO query', () => {
             await expect(
               infoQuery({
                 address,
-                exactPort,
                 port,
+                portTolerance,
                 timeout,
               })
             ).rejects.toThrow(new RangeError('Timeout after 0 ms'))
@@ -114,8 +114,8 @@ describe('A2S_INFO query', () => {
       })
     })
 
-    describe('exact port: true', () => {
-      const exactPort = true
+    describe('port tolerance: 1', () => {
+      const portTolerance = 1
 
       describe('port offset: ±0', () => {
         const port = portOffset(0)
@@ -127,8 +127,8 @@ describe('A2S_INFO query', () => {
             expect(
               await infoQuery({
                 address,
-                exactPort,
                 port,
+                portTolerance,
                 timeout,
               })
             ).toEqual(expected)
@@ -142,8 +142,8 @@ describe('A2S_INFO query', () => {
             await expect(
               infoQuery({
                 address,
-                exactPort,
                 port,
+                portTolerance,
                 timeout,
               })
             ).rejects.toThrow(new RangeError('Timeout after 0 ms'))
@@ -157,15 +157,15 @@ describe('A2S_INFO query', () => {
         describe('timeout: 3000', () => {
           const timeout = 3000
 
-          it('should throw a RangeError', async () => {
-            await expect(
-              infoQuery({
+          it('should return the server status', async () => {
+            expect(
+              await infoQuery({
                 address,
-                exactPort,
                 port,
+                portTolerance,
                 timeout,
               })
-            ).rejects.toThrow(new RangeError('Timeout after 3000 ms'))
+            ).toEqual(expected)
           })
         })
 
@@ -176,8 +176,8 @@ describe('A2S_INFO query', () => {
             await expect(
               infoQuery({
                 address,
-                exactPort,
                 port,
+                portTolerance,
                 timeout,
               })
             ).rejects.toThrow(new RangeError('Timeout after 0 ms'))
@@ -191,15 +191,15 @@ describe('A2S_INFO query', () => {
         describe('timeout: 3000', () => {
           const timeout = 3000
 
-          it('should throw a RangeError', async () => {
-            await expect(
-              infoQuery({
+          it('should return the server status', async () => {
+            expect(
+              await infoQuery({
                 address,
-                exactPort,
                 port,
+                portTolerance,
                 timeout,
               })
-            ).rejects.toThrow(new RangeError('Timeout after 3000 ms'))
+            ).toEqual(expected)
           })
         })
 
@@ -210,8 +210,8 @@ describe('A2S_INFO query', () => {
             await expect(
               infoQuery({
                 address,
-                exactPort,
                 port,
+                portTolerance,
                 timeout,
               })
             ).rejects.toThrow(new RangeError('Timeout after 0 ms'))
