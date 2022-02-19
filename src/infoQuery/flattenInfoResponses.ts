@@ -1,25 +1,24 @@
-import type { InfoResponseTall } from './sendInfoQueries'
+import { Query } from '../query'
 
-export type InfoMessage = Pick<InfoResponseTall, 'latency' | 'message' | 'size'>
+export type InfoMessage = Pick<Query, 'latency' | 'message' | 'size'>
 
 type WithInfoMessages<T> = T & {
   messages: InfoMessage[]
 }
 
 export type InfoResponseFlat = WithInfoMessages<
-  Pick<InfoResponseTall, 'address' | 'challenge' | 'family' | 'port'>
+  Pick<Query, 'address' | 'family' | 'port'>
 >
 
 export default function flattenInfoResponses(
-  responses: InfoResponseTall[]
+  responses: Query[]
 ): InfoResponseFlat {
   return <InfoResponseFlat>responses.reduce(
     (
-      { challenge, messages }: WithInfoMessages<Partial<InfoResponseTall>>,
-      { latency, message, size, ...props }: InfoResponseTall
+      { messages }: WithInfoMessages<Partial<Query>>,
+      { latency, message, size, ...props }: Query
     ) => ({
       ...props,
-      ...(challenge ? { challenge } : {}),
       messages: [...messages, { latency, message, size }],
     }),
     { messages: [] }
