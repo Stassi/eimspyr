@@ -5,20 +5,21 @@ import { durationTimer } from 'dechainer'
 import { createUDPSocket } from './createUDPSocket'
 import handleUDPSocketError from './handleUDPSocketError'
 
-export type Query = RemoteInfo & {
-  latency: number
-  message: Buffer
-}
+type WithMessageProp<T> = T & { message: Buffer }
+
+export type Query = WithMessageProp<
+  RemoteInfo & {
+    latency: number
+  }
+>
 
 export default function query({
   address,
   message,
   port,
-}: {
-  address?: string
-  message: Buffer
-  port?: number
-}): Promise<Query> {
+}: WithMessageProp<
+  Partial<{ address: string; port: number }>
+>): Promise<Query> {
   return new Promise(
     (resolve: (x: any) => unknown, reject: (error: Error) => void) => {
       const socket: Socket = createUDPSocket({
