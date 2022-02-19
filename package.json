@@ -1,6 +1,6 @@
 {
   "name": "eimspyr",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Query information from a running Source Dedicated Server (SRCDS) using UDP/IP packets.",
   "keywords": [
     "A2S_INFO",
