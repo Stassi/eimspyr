@@ -1,9 +1,9 @@
 import type { NumberCallback } from 'dechainer'
 import { add, negate } from 'dechainer'
 import expected from '../mockedResponses/zeroPlayersInfoQuery'
-import infoQuery from '../__mocks__/infoQuery/infoQuery'
+import query from '../__mocks__/query/query'
 
-describe('A2S_INFO query', () => {
+describe('query', () => {
   describe('address: 95.156.194.254', () => {
     const address = '95.156.194.254',
       port = 10011,
@@ -15,7 +15,7 @@ describe('A2S_INFO query', () => {
       describe('port offset: ±0', () => {
         it('should return the server status', async () => {
           expect(
-            await infoQuery({
+            await query({
               address,
               portTolerance,
               port: portOffset(0),
@@ -27,7 +27,7 @@ describe('A2S_INFO query', () => {
       describe('port offset: -1', () => {
         it('should throw a RangeError', async () => {
           await expect(
-            infoQuery({
+            query({
               address,
               portTolerance,
               port: portOffset(negate(1)),
@@ -39,7 +39,7 @@ describe('A2S_INFO query', () => {
       describe('port offset: +1', () => {
         it('should throw a RangeError', async () => {
           await expect(
-            infoQuery({
+            query({
               address,
               portTolerance,
               port: portOffset(1),
@@ -55,7 +55,7 @@ describe('A2S_INFO query', () => {
       describe('port offset: ±0', () => {
         it('should return the server status', async () => {
           expect(
-            await infoQuery({
+            await query({
               address,
               portTolerance,
               port: portOffset(0),
@@ -67,7 +67,7 @@ describe('A2S_INFO query', () => {
       describe('port offset: -1', () => {
         it('should return the server status', async () => {
           expect(
-            await infoQuery({
+            await query({
               address,
               portTolerance,
               port: portOffset(negate(1)),
@@ -79,7 +79,7 @@ describe('A2S_INFO query', () => {
       describe('port offset: +1', () => {
         it('should return the server status', async () => {
           expect(
-            await infoQuery({
+            await query({
               address,
               portTolerance,
               port: portOffset(1),
@@ -92,7 +92,7 @@ describe('A2S_INFO query', () => {
     describe('timeout: 3000', () => {
       it('should return the server status', async () => {
         expect(
-          await infoQuery({
+          await query({
             address,
             port,
             portTolerance: 0,
@@ -105,7 +105,7 @@ describe('A2S_INFO query', () => {
     describe('timeout: 0', () => {
       it('should throw a RangeError', async () => {
         await expect(
-          infoQuery({
+          query({
             address,
             port,
             portTolerance: 0,

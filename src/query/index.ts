@@ -1,6 +1,5 @@
-import type { Destination } from './createUDPSocket'
-import type { Query } from './query'
+import type { Query, QueryOptions } from './query'
 import query from './query'
 
-export type { Destination, Query }
+export type { Query, QueryOptions }
 export default query

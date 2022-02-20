@@ -1,7 +1,7 @@
-import type { InfoQuery } from '../infoQuery'
+import type { Query } from '../query'
 import { Buffer } from 'buffer'
 
-const zeroPlayersInfoQuery: InfoQuery = {
+const zeroPlayersInfoQuery: Query = {
   antiCheat: false,
   appID: '892970',
   bots: 0,

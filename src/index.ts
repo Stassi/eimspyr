@@ -1,5 +1,5 @@
-import type { InfoQuery, InfoQueryOptions } from './infoQuery'
-import infoQuery from './infoQuery'
+import type { Query, QueryOptions } from './query'
+import query from './query'
 
-export type { InfoQuery, InfoQueryOptions }
-export { infoQuery }
+export type { Query, QueryOptions }
+export { query }

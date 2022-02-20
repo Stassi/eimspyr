@@ -1,5 +1,5 @@
 import type { Callback, MapCallback } from 'dechainer'
-import type { InfoQuery, InfoQueryOptions } from './infoQuery'
+import type { Query, QueryOptions } from './query'
 import { Command } from 'commander'
 import { map, sleep } from 'dechainer'
 import { exit } from 'process'
@@ -9,13 +9,13 @@ const toNumber: MapCallback<string, number> = map(Number)
 
 export function cli({
   argv,
-  infoQuery,
   name,
+  query,
   version,
 }: {
   argv: string[]
-  infoQuery: Callback<InfoQueryOptions, Promise<InfoQuery>>
   name: string
+  query: Callback<QueryOptions, Promise<Query>>
   version: string
 }): void {
   new Command()
@@ -41,10 +41,10 @@ export function cli({
             portToleranceString,
             timeoutString,
           ]),
-          options: InfoQueryOptions = { address, port, portTolerance, timeout }
+          options: QueryOptions = { address, port, portTolerance, timeout }
 
         console.log(
-          inspect(await infoQuery(options), {
+          inspect(await query(options), {
             depth,
             colors: true,
           })

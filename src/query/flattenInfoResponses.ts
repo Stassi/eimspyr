@@ -1,22 +1,22 @@
-import { Query } from '../query'
+import { Datagram } from '../datagram'
 
-export type InfoMessage = Pick<Query, 'latency' | 'message' | 'size'>
+export type InfoMessage = Pick<Datagram, 'latency' | 'message' | 'size'>
 
 type WithInfoMessages<T> = T & {
   messages: InfoMessage[]
 }
 
 export type InfoResponseFlat = WithInfoMessages<
-  Pick<Query, 'address' | 'family' | 'port'>
+  Pick<Datagram, 'address' | 'family' | 'port'>
 >
 
 export default function flattenInfoResponses(
-  responses: Query[]
+  responses: Datagram[]
 ): InfoResponseFlat {
   return <InfoResponseFlat>responses.reduce(
     (
-      { messages }: WithInfoMessages<Partial<Query>>,
-      { latency, message, size, ...props }: Query
+      { messages }: WithInfoMessages<Partial<Datagram>>,
+      { latency, message, size, ...props }: Datagram
     ) => ({
       ...props,
       messages: [...messages, { latency, message, size }],
